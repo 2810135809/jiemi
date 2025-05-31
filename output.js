@@ -1,1696 +1,3123 @@
-//Thu May 29 2025 08:16:12 GMT+0000 (Coordinated Universal Time)
+//Sat May 31 2025 11:54:45 GMT+0000 (Coordinated Universal Time)
 //Base:<url id="cv1cref6o68qmpt26ol0" type="url" status="parsed" title="GitHub - echo094/decode-js: JS混淆代码的AST分析工具 AST analysis tool for obfuscated JS code" wc="2165">https://github.com/echo094/decode-js</url>
 //Modify:<url id="cv1cref6o68qmpt26olg" type="url" status="parsed" title="GitHub - smallfawn/decode_action: 世界上本来不存在加密，加密的人多了，也便成就了解密" wc="741">https://github.com/smallfawn/decode_action</url>
-var EC = {
-  "isSlid": true,
-  "Width": $(window).width(),
-  "Init": function () {
-    EC.Init.LazyLoad = new LazyLoad({});
-    EC.Style.Footer();
-    $(".gen-search").click(function () {
-      $(".pop-1").addClass("show").siblings(".box-bg2").show();
-      $("body").css({
-        "height": "100%",
-        "width": "100%",
-        "overflow": "hidden"
-      });
-    });
-    $(".gen-history").click(function () {
-      $(".pop-2").addClass("show").siblings(".box-bg2").show();
-      EC.Init.LazyLoad.update();
-      $("body").css({
-        "height": "100%",
-        "width": "100%",
-        "overflow": "hidden"
-      });
-    });
-    $(".pop-bj").click(function () {
-      $(".pop-list-body").removeClass("show").siblings(".box-bg2").hide();
-      $("body").css({
-        "height": "",
-        "width": "",
-        "overflow": ""
-      });
-    });
-    $(".pop-2 span").click(function () {
-      $(this).addClass("on").siblings().removeClass("on");
-      let _0x2a0be0 = $(".pop-2 span").index(this),
-        _0x4fe4c1 = $(".history").eq(_0x2a0be0);
-      _0x4fe4c1.fadeIn(800).siblings().hide();
-      _0x4fe4c1.addClass("check").siblings().removeClass("check");
-      if (EC.Empty(EC.Cookie.Get("user_id"))) {
-        $(".user-history").html("<div class=\"null cor5\"><img src=\"" + maccms.path2 + "static/ds3/img/null.png\" alt=\"" + language["2"] + "\"><span>" + language["0"] + "</span></div>" + "<a href=\"javascript:\" class=\"button top30 head-user\" style=\"width:100%\">" + language["1"] + "</a>");
-      } else $(".user-history li").length === 0 && EC.Ajax(maccms.path + "/index.php/api/history", "post", "json", "", function (_0x3d6181) {
-        if (_0x3d6181.code === 1) {
-          {
-            let _0x5364ef = "";
-            $.each(_0x3d6181.list, function (_0x58b1b2, _0x2d5569) {
-              _0x5364ef += "<li><a class=\"history-a flex\" href=\"" + _0x2d5569.data.link + "\" target=\"video\" title=\"" + _0x2d5569.data.name + "\"><img class=\"lazy lazy1\" referrerpolicy=\"no-referrer\" alt=\"" + _0x2d5569.data.name + "\" data-src=\"" + _0x2d5569.data.pic + "\"/>" + "<div class=\"history-r\"><div class=\"hide2\">" + _0x2d5569.data.name + "</div><div><span class=\"cor5\">" + _0x2d5569.data.type.type_name + "</span></div></div></a></li>";
-            });
-            $(".user-history ul").html(_0x5364ef);
-            EC.Init.LazyLoad.update();
-            Number($(".lang-bnt").length) === 1 && zh_tranBody();
-          }
-        } else $(".user-history ul").html(EC.History.Msg);
-      });
-    });
-    $(".user-share-button").click(function () {
-      EC.Pop.Show($(".user-share-html").html(), language["3"], function () {});
-    });
-    setTimeout(function () {
-      $(".gen-loading").fadeOut("slow");
-    }, 200);
-    $(".head-more-a").hover(function () {
-      $(".nav-more").html("&#xe564;");
-      $(".head-more").show();
-    }, function () {
-      $(".nav-more").html("&#xe563;");
-      $(".head-more").hide();
-    });
-    let _0x314e31 = null,
-      _0xc6cc19 = $(".head"),
-      _0x136af1 = $(".row-2 .tim-box"),
-      _0x51494c = null;
-    _0xc6cc19.length > 0 && (_0x314e31 = _0xc6cc19.offset().top);
-    _0x136af1.length > 0 && (_0x51494c = _0x136af1.eq(_0x136af1.length - 1).offset().top);
-    $(window).scroll(EC.debounce(function () {
-      let _0x5f3b75 = $(this).scrollTop();
-      _0xc6cc19.toggleClass("head-b", _0x5f3b75 > _0x314e31).css("position", _0x5f3b75 > _0x314e31 ? "fixed" : "");
-      _0x5f3b75 > 300 ? $(".top").fadeIn(600) : $(".top").fadeOut(600);
-      _0x5f3b75 > _0x51494c ? _0x136af1.eq(_0x136af1.length - 1).css({
-        "position": "fixed",
-        "top": "100px",
-        "width": $(".row-2").width()
-      }) : _0x136af1.eq(_0x136af1.length - 1).css({
-        "position": "",
-        "top": "",
-        "width": ""
-      });
-    }, 50));
-    $(".top").click(function () {
-      $("html,body").animate({
-        "scrollTop": 0
-      }, 500);
-      _0xc6cc19.removeClass("head-b").css({
-        "position": ""
-      });
-    });
-    if (Number($(".slid-e").length) === 1) {
-      let _0x6f8487 = new Swiper(".swiper3", {
-        "loop": true,
-        "slidesPerView": 1,
-        "pagination": {
-          "el": ".swiper-pagination"
-        },
-        "on": {
-          "slideChangeTransitionStart": function () {
-            _0x327bc1();
-            $(".muted").off("click");
-            $(".toReplay").off("click");
-            $(".slid-e-video").removeClass("v-show");
-            $(".slid-e-bj").removeClass("v-hidden");
-          },
-          "slideChangeTransitionEnd": function () {
-            $(".wap-hide").is(":hidden") == false && EC.isSlid && (EC.isSlid = false, setTimeout(function () {
-              EC.isSlid = true;
-              _0x2eec86();
-            }, 1000));
-          }
-        }
-      });
-      function _0x327bc1() {
-        let _0x1aae48 = Array.from(document.getElementsByClassName("preview"));
-        for (let _0x7f6eb8 = 0; _0x7f6eb8 < _0x1aae48.length; _0x7f6eb8++) {
-          const _0x32dbbb = _0x1aae48[_0x7f6eb8];
-          _0x32dbbb.pause();
-          _0x32dbbb.currentTime = 0;
-        }
-      }
-      let _0x5829c6 = 0;
-      function _0x2eec86() {
-        let _0x246170 = document.querySelector(".slid-e").querySelector(".swiper-slide-active").querySelector("video"),
-          _0x437bcc = $(".slid-e .swiper-slide-active");
-        ~~_0x246170.duration > 10 ? (_0x437bcc.find(".slid-e-video").addClass("v-show"), _0x437bcc.find(".slid-e-bj").addClass("v-hidden"), _0x246170.muted ? $(".muted .fa").removeClass("ds-shengyin").addClass("ds-liulan") : $(".muted .fa").removeClass("ds-liulan").addClass("ds-shengyin"), $(".muted").click(function () {
-          {
-            if (_0x246170.muted) $(".muted .fa").removeClass("ds-liulan").addClass("ds-shengyin"), _0x246170.muted = false, _0x5829c6 = 1;else {
-              $(".muted .fa").removeClass("ds-shengyin").addClass("ds-liulan");
-              _0x246170.muted = true;
-              _0x5829c6 = 0;
-            }
-          }
-        }), _0x5829c6 === 1 && ($(".muted .fa").removeClass("ds-liulan").addClass("ds-shengyin"), _0x246170.muted = false), $(".toReplay").click(function () {
-          _0x437bcc.find(".slid-e-video").addClass("v-show");
-          _0x437bcc.find(".slid-e-bj").addClass("v-hidden");
-          _0x246170.currentTime = 0;
-          _0x246170.play();
-        }), _0x246170.play(), _0x246170.addEventListener("ended", function () {
-          _0x437bcc.find(".slid-e-video").removeClass("v-show");
-          _0x437bcc.find(".slid-e-bj").removeClass("v-hidden");
-          _0x6f8487.slideNext();
-        })) : setTimeout(function () {
-          _0x6f8487.slideNext();
-        }, 6000);
-      }
+const $ = new Env("福田e家");
+const crypto = require("crypto");
+const notify = $.isNode() ? require("../sendNotify") : "";
+(() => {
+  var j = {
+    gvHlt: function (ad, ae) {
+      return ad === ae;
+    },
+    ABNqX: "zkoOC",
+    KPcXQ: function (ad, ae) {
+      return ad in ae;
+    },
+    dboSg: function (ad, ae) {
+      return ad(ae);
+    },
+    YZZvH: function (ad, ae) {
+      return ad !== ae;
+    },
+    NOrYR: "rnaNh",
+    nSHtC: function (ad, ae) {
+      return ad == ae;
+    },
+    YGOQK: "function",
+    geqsz: "symbol",
+    eTEkg: function (ad) {
+      return ad();
+    },
+    OmnEA: function (ad) {
+      return ad();
+    },
+    XeVQt: "fzeWT",
+    LWlyc: function (ad, ae) {
+      return ad(ae);
+    },
+    gjYcq: function (ad, ae, af, ag, ah) {
+      return ad(ae, af, ag, ah);
+    },
+    vgdKo: "HNylV",
+    InCRa: function (ad, ae) {
+      return ad !== ae;
+    },
+    YpubX: "wflyb",
+    kDYSt: "CHhpu",
+    tmitC: "string",
+    KFvlw: function (ad, ae, af) {
+      return ad(ae, af);
+    },
+    vvorZ: function (ad, ae) {
+      return ad === ae;
+    },
+    yZRsu: "Object",
+    SkVWf: "Map",
+    fgjfn: function (ad, ae) {
+      return ad === ae;
+    },
+    cLbYG: "Arguments",
+    QgGlf: "JIxXY",
+    bHuCq: function (ad, ae) {
+      return ad >= ae;
+    },
+    ecSPQ: "kEHnY",
+    yqlSX: "dIyYn",
+    mmTpq: "MjAxNjEyMDE=",
+    ygkqK: "base64",
+    RCMEP: "utf8",
+    VNXWT: function (ad, ae) {
+      return ad !== ae;
+    },
+    kkuzf: "zdZtw",
+    gbaqQ: "xUJtA",
+    LdSKx: "fwgvg",
+    LrZVT: function (ad, ae) {
+      return ad == ae;
+    },
+    NMgkW: "kRVVg",
+    iiFvS: function (ad, ae, af, ag, ah) {
+      return ad(ae, af, ag, ah);
+    },
+    HovAn: "next",
+    bSMTu: function (ad, ae) {
+      return ad in ae;
+    },
+    bMkuh: function (ad, ae) {
+      return ad >= ae;
+    },
+    XWXjg: function (ad, ae) {
+      return ad === ae;
+    },
+    WWIOa: "SGMyM",
+    WBNyH: "aWtvT",
+    zLCPT: function (ad, ae) {
+      return ad === ae;
+    },
+    CgUFV: "iUNTF",
+    GeVNJ: "uBHuT",
+    bmzlz: function (ad, ae) {
+      return ad != ae;
+    },
+    akREh: "@@iterator",
+    gRcxA: "btNeb",
+    rqYfb: "zRgJv",
+    WKbmB: function (ad, ae) {
+      return ad && ae;
+    },
+    JMLMR: function (ad, ae) {
+      return ad === ae;
+    },
+    aPPrC: "HJbPJ",
+    GfFFu: "Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.",
+    wOCLK: function (ad, ae) {
+      return ad === ae;
+    },
+    zsNgZ: "xCKiW",
+    Wvlia: function (ad, ae) {
+      return ad > ae;
+    },
+    GjwwU: "throw",
+    XUbgp: function (ad, ae) {
+      return ad !== ae;
+    },
+    dRlec: "DprPF",
+    NeGyx: function (ad, ae, af, ag, ah, ai, aj, ak) {
+      return ad(ae, af, ag, ah, ai, aj, ak);
+    },
+    aqcre: "mWpeQ",
+    FkUTm: "xtPCs",
+    REUWm: "uUNds",
+    iDLvu: function (ad, ae) {
+      return ad instanceof ae;
+    },
+    HPxvf: function (ad, ae, af, ag) {
+      return ad(ae, af, ag);
+    },
+    dFdyp: "_invoke",
+    ajuoz: function (ad, ae, af, ag) {
+      return ad(ae, af, ag);
+    },
+    qaVYI: function (ad, ae) {
+      return ad == ae;
+    },
+    Xedjm: function (ad, ae) {
+      return ad(ae);
+    },
+    FSIXk: "normal",
+    AqHYd: function (ad, ae) {
+      return ad === ae;
+    },
+    ciWjA: "jXhnI",
+    yaxPa: "blstL",
+    aXylj: function (ad, ae) {
+      return ad !== ae;
+    },
+    szecr: "iZsxn",
+    XvYPj: "CjHHw",
+    BMMAT: "mMslh",
+    JWSRK: "end",
+    LJLMY: function (ad, ae) {
+      return ad === ae;
+    },
+    sXcKE: "GeypK",
+    bwSYP: "vpfdm",
+    HvEyy: "hxZkk",
+    dcezx: function (ad, ae) {
+      return ad === ae;
+    },
+    UjDRC: "VkAPF",
+    cbCyY: "return",
+    pfBwj: "catchLoc",
+    aEOnL: function (ad, ae) {
+      return ad < ae;
+    },
+    kZEAW: function (ad, ae) {
+      return ad(ae);
+    },
+    eoctL: "try statement without catch or finally",
+    MPeHa: "EXwyS",
+    VNkKF: function (ad, ae) {
+      return ad + ae;
+    },
+    SZbrQ: " is not iterable",
+    PMytn: function (ad, ae) {
+      return ad >= ae;
+    },
+    mJrtN: "IRsfZ",
+    swsgC: function (ad, ae) {
+      return ad - ae;
+    },
+    dLYiQ: "XKabv",
+    OaDKy: "mMUek",
+    yasys: "__await",
+    TdwBA: "ddUXH",
+    JjIwk: "cNMWW",
+    zqheD: "GZZaX",
+    xMISn: function (ad, ae) {
+      return ad == ae;
+    },
+    NdRiY: function (ad, ae) {
+      return ad !== ae;
+    },
+    gMAbH: "agkBE",
+    DModC: "onwJO",
+    TBOrd: "QVJpn",
+    JpYSy: function (ad, ae) {
+      return ad < ae;
+    },
+    YqiVZ: function (ad, ae, af) {
+      return ad(ae, af);
+    },
+    wqVXi: "BfuYO",
+    isLvZ: "ezIyW",
+    zyujY: function (ad, ae) {
+      return ad === ae;
+    },
+    FdKhK: function (ad, ae) {
+      return ad !== ae;
+    },
+    tgeiZ: function (ad, ae) {
+      return ad !== ae;
+    },
+    JhUap: function (ad, ae) {
+      return ad + ae;
+    },
+    HmnvY: "The iterator does not provide a '",
+    DAzcl: "' method",
+    LCwIu: "EtOIm",
+    WXNEz: "lDGZg",
+    fBFPv: "root",
+    qMaoI: function (ad, ae) {
+      return ad == ae;
+    },
+    YdSCw: function (ad, ae) {
+      return ad(ae);
+    },
+    oCClA: function (ad, ae, af) {
+      return ad(ae, af);
+    },
+    hqfeb: function (ad, ae) {
+      return ad === ae;
+    },
+    gONzz: "sigaS",
+    wLEDq: "Zm9udG9uZS10cmFuc0BseDEwMCQjMzY1",
+    kJxyE: "des-ede3-cbc",
+    QGIxQ: function (ad, ae) {
+      return ad === ae;
+    },
+    ilEun: function (ad, ae) {
+      return ad !== ae;
+    },
+    ghfyE: "Obtqs",
+    SpWwr: "XgaNt",
+    hIoHQ: function (ad, ae) {
+      return ad == ae;
+    },
+    SXDRE: function (ad, ae) {
+      return ad(ae);
+    },
+    LrHdJ: "xTNvY",
+    Idaqw: "njoBf",
+    Fidwh: function (ad, ae) {
+      return ad(ae);
+    },
+    gAvQq: function (ad, ae) {
+      return ad === ae;
+    },
+    czCwo: "kUhQj",
+    GVxpH: "swFvk",
+    kjscZ: "GeneratorFunction",
+    OeuwW: "gYLam",
+    DuQwa: function (ad, ae) {
+      return ad === ae;
+    },
+    jAHaj: "mtgSK",
+    CUbzw: "VgWiF",
+    xIXTW: "uKisj",
+    pPCQO: "hsCUV",
+    QpXAg: "LtvQe",
+    HsXrP: "ukAco",
+    VyOIs: "[object Generator]",
+    wyzCv: "PzfCH",
+    PVuHa: function (ad, ae) {
+      return ad in ae;
+    },
+    AqKPp: "jlGKJ",
+    ibfDL: function (ad, ae) {
+      return ad(ae);
+    },
+    rrSxX: function (ad, ae) {
+      return ad !== ae;
+    },
+    VOCzB: "jAdJN",
+    PNSmX: function (ad, ae) {
+      return ad === ae;
+    },
+    vdzHM: "break",
+    jJUWP: "continue",
+    mfQoP: "CAGlQ",
+    ZHIfw: "VYpXl",
+    EtBAN: function (ad, ae) {
+      return ad === ae;
+    },
+    reUVC: function (ad, ae) {
+      return ad === ae;
+    },
+    LnNGl: "snfht",
+    BDgIk: "illegal catch attempt",
+    GpsVG: "Vneyn",
+    SOLmn: function (ad, ae, af, ag) {
+      return ad(ae, af, ag);
+    },
+    qrBtk: function (ad, ae) {
+      return ad === ae;
+    },
+    UlMex: function (ad, ae) {
+      return ad === ae;
+    },
+    PBwAr: function (ad, ae) {
+      return ad === ae;
+    },
+    NDYoL: function (ad, ae, af, ag, ah) {
+      return ad(ae, af, ag, ah);
+    },
+    VerJV: function (ad, ae) {
+      return ad == ae;
+    },
+    huRrV: "mGfGC",
+    OPxHE: "zlqiq",
+    nQmBf: "zEhPQ",
+    XOIZC: "UjKNu",
+    Ihrtp: "pTUbG",
+    NRFNK: "IUXxG",
+    VOolz: "leKNE",
+    itHLp: function (ad, ae, af, ag) {
+      return ad(ae, af, ag);
+    },
+    LVDeF: "NLhAU",
+    mIlzg: "DZaAv",
+    mcruo: function (ad) {
+      return ad();
+    },
+    uDCSN: "TSMfo",
+    qQVpd: function (ad, ae, af, ag) {
+      return ad(ae, af, ag);
+    },
+    oBiLK: function (ad, ae) {
+      return ad !== ae;
+    },
+    ROwgH: "PILDT",
+    HLeUu: "ZfZPX",
+    xXgui: function (ad, ae) {
+      return ad(ae);
+    },
+    AaXnm: function (ad, ae) {
+      return ad !== ae;
+    },
+    BvnfA: "AEhJK",
+    iajYC: function (ad, ae) {
+      return ad === ae;
+    },
+    VmdVx: "iterator result is not an object",
+    Xfhyh: function (ad, ae) {
+      return ad === ae;
+    },
+    VFuVc: function (ad, ae) {
+      return ad === ae;
+    },
+    jdkVG: "fJbyb",
+    kHbUH: function (ad, ae) {
+      return ad - ae;
+    },
+    XZcKg: "RJkVt",
+    suqwI: function (ad, ae) {
+      return ad(ae);
+    },
+    NSBKN: function (ad, ae) {
+      return ad <= ae;
+    },
+    zqAhD: "ZMaBl",
+    WrhcS: "pGZTv",
+    WKkGp: "RIwzd",
+    qIByO: function (ad, ae) {
+      return ad < ae;
+    },
+    qPIWL: function (ad, ae) {
+      return ad(ae);
+    },
+    Bydth: function (ad, ae) {
+      return ad >= ae;
+    },
+    ktWLJ: function (ad, ae) {
+      return ad !== ae;
+    },
+    RaeNg: "gosVe",
+    RBNHb: function (ad, ae) {
+      return ad < ae;
+    },
+    ZiQmO: function (ad, ae) {
+      return ad <= ae;
+    },
+    UqDKF: "Eqntp",
+    LdfOq: "qjkgD",
+    iHSkR: "uqYnz",
+    yQQTL: "@@toStringTag",
+    ZzMWd: "hQGuE",
+    DJdGq: "NtcQn",
+    TPMLk: "GOcVw",
+    AsAIP: "suspendedStart",
+    otHmV: "executing",
+    fZChr: function (ad, ae, af, ag) {
+      return ad(ae, af, ag);
+    },
+    EzXmM: function (ad, ae) {
+      return ad(ae);
+    },
+    rkDDl: function (ad, ae) {
+      return ad !== ae;
+    },
+    DxgjY: "constructor",
+    dVbNH: "Generator",
+    TeacP: "toString",
+    vzEmL: function (ad, ae) {
+      return ad < ae;
+    },
+    LtYnO: "wxzUK",
+    doZMc: "Kmnum",
+    exRpN: "WPtiN",
+    IpnzW: function (ad, ae) {
+      return ad !== ae;
+    },
+    dYLHR: function (ad, ae) {
+      return ad >= ae;
+    },
+    NBIDs: "vCFDH",
+    izbNn: "RDYSQ",
+    JQmgt: function (ad, ae) {
+      return ad == ae;
+    },
+    ShDHa: "作者：@xzxxn777\n频道：https://t.me/xzxxn777\n群组：https://t.me/xzxxn7777\n自用机场推荐：https://xn--diqv0fut7b.com\n",
+    lHDkH: function (ad, ae) {
+      return ad === ae;
+    },
+    Jhnxi: "先去boxjs填写账号密码",
+    KcHFu: "xvYlm",
+    njbPA: "获取皮卡生活safeKey",
+    zqDhZ: "kjFTz",
+    CcoeT: "皮卡生活登录",
+    zmcVW: "/ehomes-new/pkHome/api/user/getLoginMember2nd",
+    tINTQ: "开始签到",
+    RLvRw: function (ad, ae, af) {
+      return ad(ae, af);
+    },
+    EMdSh: "/ehomes-new/pkHome/api/bonus/signActivity2nd",
+    IcnjP: "签到成功，获得",
+    ZKXMx: "————————————",
+    pMdHl: function (ad, ae, af) {
+      return ad(ae, af);
+    },
+    hqCuo: "/est/getVersion.action",
+    GtoQq: "7.5.1",
+    tfWya: "cMOmM",
+    PGnvD: "dDgHC",
+    MlbSj: "svHgvcBi/9f/MyYFLY3aFQ==",
+    GvtaU: "342",
+    ZJQoE: "QHkoM",
+    dWhmd: "登陆成功",
+    kcvgT: "/ehomes-new/homeManager/api/share/corsToActicity",
+    ekNPf: "open",
+    DFZGm: "打开app：",
+    OhCOr: function (ad, ae) {
+      return ad != ae;
+    },
+    dSNbq: "ASNhR",
+    Zabow: function (ad, ae) {
+      return ad == ae;
+    },
+    awclh: function (ad, ae) {
+      return ad === ae;
+    },
+    IvimS: function (ad, ae) {
+      return ad !== ae;
+    },
+    hdynj: "NIOiX",
+    YWPsh: "任务：",
+    xFTet: "ovlPf",
+    KMnMV: "pUNbx",
+    IDbvK: "任务已完成",
+    LwMhp: "/ehomes-new/homeManager/api/bonus/addIntegralForShare",
+    RJkSi: "APP",
+    gYkub: "130",
+    YrPKl: "/ehomes-new/ehomesCommunity/api/post/recommendPostList",
+    xLNaX: function (ad, ae) {
+      return ad * ae;
+    },
+    cEffF: "/ehomes-new/ehomesCommunity/api/post/follow2nd",
+    BGYxA: "关注成功",
+    JHtlq: function (ad, ae) {
+      return ad - ae;
+    },
+    KsGcr: function (ad, ae) {
+      return ad != ae;
+    },
+    fLcxg: "125",
+    ZSPAr: "如果觉得没有朋友，就去找喜欢的人表白，对方会提出和你做朋友的。",
+    cQpOK: "文本：",
+    Tjfmw: "/ehomes-new/ehomesCommunity/api/post/addJson2nd",
+    uwDpt: "发帖成功",
+    rHljK: "拥有积分: ",
+    pOHdG: " 拥有积分: ",
+    cUXrx: function (ad, ae) {
+      return ad(ae);
+    },
+    IQjpK: "https://czyl.foton.com.cn",
+    EoPwC: "application/json;charset=utf-8",
+    rSMIM: "okhttp/3.14.9",
+    Iwpss: function (ad) {
+      return ad();
+    },
+    eOxEu: function (ad, ae) {
+      return ad(ae);
+    },
+    aHpBO: function (ad) {
+      return ad();
+    },
+    HEyPA: "gzip",
+    bqJPj: function (ad, ae) {
+      return ad(ae);
+    },
+    PgBSr: function (ad) {
+      return ad();
+    },
+    zecUf: function (ad) {
+      return ad();
+    },
+    lSTvY: function (ad, ae) {
+      return ad(ae);
+    },
+    vLrdG: "Keep-Alive",
+    nbvNy: "7918d2d1a92a02cbc577adb8d570601e72d3b640",
+    kqXrO: "web",
+    aFyXR: function (ad) {
+      return ad();
+    },
+    vIxex: "https://cy.91yu.cn/yz/juhe.php?msg=爱情语录",
+    aWGfR: function (ad, ae) {
+      return ad(ae);
+    },
+    OLFbf: function (ad) {
+      return ad();
+    },
+    Mlqpg: function (ad) {
+      return ad();
+    },
+    sGXyj: "https://fastly.jsdelivr.net/gh/xzxxn777/Surge@main/Utils/Notice.json",
+    ULzfh: function (ad) {
+      return ad();
+    },
+    DqBdU: "FTEJ",
+    sfIPD: function (ad) {
+      return ad();
     }
-    let _0x4489f3 = $("#height_limit");
-    _0x4489f3.height() >= 80 && (_0x4489f3.addClass("occlusion"), $(".text-open").show());
-    $(".tim-bnt").click(function () {
-      _0x4489f3.hasClass("height_rel") ? ($(".tim-bnt").html("<i class=\"fa r6 ease\">&#xe563;</i>" + language["4"]), _0x4489f3.removeClass("height_rel"), _0x4489f3.addClass("occlusion")) : ($(".tim-bnt").html("<i class=\"fa r6 ease\">&#xe564;</i>" + language["4"]), _0x4489f3.addClass("height_rel"), _0x4489f3.removeClass("occlusion"));
-    });
-    EC.Swiper.Navs();
-    EC.Swiper.Slide();
-    EC.Swiper.Roll();
-    EC.Actor.Detail();
-    $(".gen-left-list").click(function () {
-      let _0x553d0d = $(".head-more").html(),
-        _0x4dc890 = "bold0",
-        _0x57f48b = "wap-show1",
-        _0x175ad8 = $(".head-nav");
-      _0x175ad8.hasClass("bold1") && (_0x4dc890 = "bold1");
-      if (_0x175ad8.hasClass("wap-show0")) {
-        _0x57f48b = "wap-show0";
-      }
-      EC.Pop.Drawer("<div class='drawer-nav drawer-scroll " + _0x4dc890 + " " + _0x57f48b + "'><div class='drawer-scroll-list'>" + _0x553d0d + "</div></div>", function () {
-        let _0x3a8930 = $(".gen-account-menu").html();
-        $(".drawer-list-box").prepend("<div class='drawer-menu cor2'>" + _0x3a8930 + "</div>");
-      });
-    });
-    $(".playBut").click(function () {
-      let _0x2a2bf1 = $(this).attr("data-url");
-      $(".play-advance .topfadeInUp").html("<video id=\"xkPlayer\" width=\"100%\" height=\"100%\" controls preload=\"auto\" autoplay><source src=\"" + _0x2a2bf1 + "\" type=\"video/mp4\"></video>");
-      $(".play-advance").show();
-    });
-    $(".play-advance .box-bg,.play-advance .mfp-close").click(function () {
-      let _0x2d2b0d = document.getElementById("xkPlayer");
-      _0x2d2b0d.currentTime = 0;
-      _0x2d2b0d.pause();
-      $(".play-advance").hide();
-      $(".mfp-iframe").remove();
-    });
-    $(".deployment").click(function () {
-      {
-        let _0x39e728 = $(".info-parameter").html();
-        EC.Pop.Drawer(_0x39e728, function () {
-          $(".drawer-list-box").addClass("drawer-list-b bj3");
-          $(document).on("click", ".drawer-of", function () {
-            EC.Pop.DrawerDel();
-          });
-        });
-      }
-    });
-    $(".wap-diy-vod-e .vod-link").hover(function () {
-      $(this).addClass("box");
-      $(this).children(".vod-no-dom-show").hide();
-      $(this).children(".vod-no-dom").show();
-    }, function () {
-      $(this).removeClass("box");
-      $(this).children(".vod-no-dom-show").show();
-      $(this).children(".vod-no-dom").hide();
-    });
-    $("#BuyPopEdom").click(function () {
-      {
-        let _0x49b920 = $(this);
-        _0x49b920.attr("data-id") && confirm(language["6"]) && EC.Ajax(maccms.path + "/index.php/user/ajax_buy_popedom.html?id=" + _0x49b920.attr("data-id") + "&mid=" + _0x49b920.attr("data-mid") + "&sid=" + _0x49b920.attr("data-sid") + "&nid=" + _0x49b920.attr("data-nid") + "&type=" + _0x49b920.attr("data-type"), "get", "json", "", function (_0x34cbd7) {
-          _0x49b920.addClass("disabled");
-          _EC.Pop.Msg(_0x34cbd7.msg);
-          Number(_0x34cbd7.code) === 1 && top.location.reload();
-          _0x49b920.removeClass("disabled");
-        });
-      }
-    });
-    $("#check").click(function () {
-      let _0x479f8c = $(this);
-      _0x479f8c.attr("data-id") && EC.Ajax(maccms.path + "/index.php/ajax/pwd.html?id=" + _0x479f8c.attr("data-id") + "&mid=" + _0x479f8c.attr("data-mid") + "&type=" + _0x479f8c.attr("data-type") + "&pwd=" + _0x479f8c.parents("form").find("input[name=\"pwd\"]").val(), "get", "json", "", function (_0x56c6cd) {
-        _0x479f8c.addClass("disabled");
-        _EC.Pop.Msg(_0x56c6cd.msg);
-        Number(_0x56c6cd.code) === 1 && location.reload();
-        _0x479f8c.removeClass("disabled");
-      });
-    });
-    switch (maccms.aid) {
-      case "12":
-      case "11":
-        let _0x49034e = $("#dataList");
-        if (_0x49034e.length > 0) {
-          let _0x4f4d23 = _0x49034e.data(),
-            _0x5c434e = {
-              "type": _0x4f4d23.type,
-              "class": _0x4f4d23.class,
-              "area": _0x4f4d23.area,
-              "lang": _0x4f4d23.lang,
-              "version": _0x4f4d23.version,
-              "state": _0x4f4d23.state,
-              "letter": _0x4f4d23.letter
-            };
-          $(".ec-casc-list .swiper-slide").click(function () {
-            $(this).addClass("nav-dt").siblings().removeClass("nav-dt");
-            EC.Swiper.Navs();
-            _0x5c434e[$(this).data("type")] = $(this).data("val");
-            if (EC.Empty($(this).data("type"))) return;
-            _0x49034e.html("");
-            HTML.Skeleton(_0x49034e, 3, _0x4f4d23.tpl);
-            EC.flow.get(_0x5c434e, _0x49034e, _0x4f4d23, function () {});
-          });
-          $(".site-tabs a").click(function () {
-            $(this).addClass("active").siblings().removeClass("active");
-            if (Number($("#dataList .null").length) === 1) return;
-            _0x5c434e.by = $(this).data("type");
-            _0x49034e.html("");
-            HTML.Skeleton(_0x49034e, 3, _0x4f4d23.tpl);
-            EC.flow.get(_0x5c434e, _0x49034e, _0x4f4d23, function () {});
-          });
-          HTML.Skeleton(_0x49034e, 3, _0x4f4d23.tpl);
-          _0x5c434e[$(this).data("type")] = $(this).data("val");
-          EC.flow.get(_0x5c434e, _0x49034e, _0x4f4d23, function () {});
-        }
-        break;
-      case "14":
-      case "104":
-      case "15":
-        $(".anthology-tab a").click(function () {
-          {
-            $(this).addClass("on nav-dt").siblings().removeClass("on nav-dt");
-            let _0x1ef41d = $(".anthology-tab a").index(this),
-              _0x5752eb = $(".anthology-list .none").eq(_0x1ef41d);
-            _0x5752eb.fadeIn(800).siblings().hide();
-            _0x5752eb.addClass("dx").siblings().removeClass("dx");
-            EC.Swiper.Navs();
-          }
-        });
-        $("#zxdaoxu").each(function () {
-          $(this).on("click", function (_0x447e1d) {
-            _0x447e1d.preventDefault();
-            $(".dx").each(function () {
-              let _0x537e00 = $(this).find("li");
-              for (let _0x473c36 = 0, _0x45590c = _0x537e00.length - 1; _0x473c36 < _0x45590c;) {
-                let _0x9105f8 = _0x537e00.eq(_0x473c36).clone(true),
-                  _0x353c7b = _0x537e00.eq(_0x45590c).replaceWith(_0x9105f8);
-                _0x537e00.eq(_0x473c36).replaceWith(_0x353c7b);
-                ++_0x473c36;
-                --_0x45590c;
-              }
-            });
-          });
-        });
-        $("#role .public-list-box").click(function () {
-          {
-            let _0x3a68a9 = $(this).index(),
-              _0x1e0c8e = $("#role .cor5").eq(_0x3a68a9).text(),
-              _0x1c4bad = $("#role .time-title").eq(_0x3a68a9).text(),
-              _0x10c735 = $("#role .lazy").eq(_0x3a68a9).data(),
-              _0x26a911 = _0x10c735.text;
-            _0x26a911.length < 1 && (_0x26a911 = language["7"]);
-            let _0x1ec399 = "<div class=\"role-card\"><div class=\"card-top flex\"><div class=\"left\"><img class=\"lazy\" src=\"" + _0x10c735.src + "\" alt=\"" + _0x1c4bad + "\"></div>\n" + "<div class=\"right\"><p>" + _0x1c4bad + "</p><p class=\"cor5\">" + _0x1e0c8e + "</p></div></div> \n" + "<div class=\"card-bottom\"><p class=\"card-title\">" + language["8"] + "</p><div class=\"card-text cor5\">" + _0x26a911 + "</div></div></div>";
-            EC.Pop.Show(_0x1ec399, language["9"], function () {});
-          }
-        });
-        $(".vod-detail .vod-detail-bnt .button").click(function () {
-          location.href = $(".anthology-list-play a").eq(0).attr("href");
-        });
-        $(".player-button-ac").click(function () {
-          $(".anthology-list").toggleClass("player-list-ac");
-        });
-        $(".play-tips-bnt").click(function () {
-          $(".tips-box").slideToggle();
-          $(".charge,.player-share-box").hide();
-        });
-        $(".ec-report").click(function () {
-          let _0x2e62f0 = $(this).data();
-          EC.Gbook.Report(_0x2e62f0);
-        });
-        $(".charge-button").click(function () {
-          $(".charge").fadeToggle();
-          $(".player-share-box,.tips-box").hide();
-        });
-        $(".player-comment").click(function () {
-          $(".comment-form").length < 1 && (EC.Comment.Login = $(this).data().login, EC.Comment.Verify = $(this).data().verify, EC.Comment.Init(), EC.Comment.Show(1));
-        });
-        maccms.player_style && $(".comment-form").length < 1 && (EC.Comment.Login = $(this).data().login, EC.Comment.Verify = $(this).data().verify, EC.Comment.Init(), EC.Comment.Show(1));
-        $("#expand_details").click(function () {
-          $(".player-vod-box").hide();
-          $(".player-list-box").hide();
-          $(".player-details-box").show();
-        });
-        $(".player-close").click(function () {
-          $(".player-vod-box").show();
-          $(".player-list-box").show();
-          $(".player-details-box").hide();
-          $(".player-return .none").hide();
-          $(".player-vod-no1").show();
-          $(".player-vod-no2").html("<div class=\"top40\"><div class=\"loading\"><span></span><span></span><span></span><span></span><span></span></div></div>").hide();
-        });
-        $(".player-vod-no1 .public-list-box").click(function () {
-          $(".player-return .none").show();
-          $(".player-vod-no1").hide();
-          $(".player-vod-no2").show();
-          EC.Ajax(maccms.path + "/index.php/api/actor_vod_player_api?id=" + $(this).attr("data-id"), "get", "json", "", function (_0x446373) {
-            if (Number(_0x446373.code) === 1) {
-              let _0x55d878 = "";
-              $.each(_0x446373.list, function (_0x4491ca, _0x18ecdc) {
-                _0x55d878 = _0x55d878 + "<div class=\"public-list-box public-pic-b\"><div class=\"public-list-div\"><a class=\"public-list-exp\" href=\"" + _0x18ecdc.url + "\" title=\"" + _0x18ecdc.name + "\">" + "<img class=\"lazy lazy1 gen-movie-img " + maccms.vod_mask + "\" referrerpolicy=\"no-referrer\" alt=\"" + language["10"] + "\" data-src=\"" + _0x18ecdc.pic + "\" /></a>\n" + "<i class=\"collection fa\" data-type=\"2\" data-mid=\"" + maccms.mid + "\" data-id=\"" + _0x18ecdc.id + "\">&#xe577;</i></div>\n" + "<div class=\"public-list-button\"><a target=\"_blank\" class=\"time-title hide ft4\" href=\"" + _0x18ecdc.url + "\" title=\"" + _0x18ecdc.name + "\">" + _0x18ecdc.name + "</a></div></div>";
-              });
-              $(".player-vod-no2").html("<div class=\"role-card top20\">" + _0x446373.html + "</div><div class=\"title-m cor4\"><h5>" + language["11"] + "</h5></div><div class=\"flex wrap border-box hide-b-16 wap-diy-vod-a\">" + _0x55d878 + "</div>");
-              EC.Init.LazyLoad.update();
-            } else _EC.Pop.Msg(language["12"], "", "error");
-          });
-        });
-        $(".player-return .none").click(function () {
-          $(this).hide();
-          $(".player-vod-no1").show();
-          $(".player-vod-no2").html("<div class=\"top40\"><div class=\"loading\"><span></span><span></span><span></span><span></span><span></span></div></div>").hide();
-        });
-        if (Number(maccms.jx) === 1) {
-          let _0x1871b4 = $(".line-switch");
-          EC.player.player_jx(_0x1871b4.attr("data-api"), _0x1871b4.attr("data-url"));
-          $(".vod-playerUrl").click(function () {
-            _0x1871b4.html("");
-            EC.player.player_jx(_0x1871b4.attr("data-api"), $(this).attr("data-form"));
-          });
-          $(document).on("click", ".line-switch a", function () {
-            $(this).addClass("bj2").siblings().removeClass("bj2");
-            maccms.jx_index = $(this).index();
-            $("#playleft iframe").attr("src", $(this).attr("data-api") + MacPlayer.PlayUrl);
-            _EC.Pop.Msg(language["13"], "", "success");
-          });
-        }
-        break;
-      case "4":
-        EC.Gbook.Init();
-        break;
-      case "24":
-        $(".tim-content img").touchTouch();
-        let _0x2c9bcf = $(".ds-comment");
-        if (Number(_0x2c9bcf.length) === 1) {
-          EC.Comment.Login = _0x2c9bcf.data().login;
-          EC.Comment.Verify = _0x2c9bcf.data().verify;
-          EC.Comment.Init();
-          EC.Comment.Show(1);
-        }
-        break;
-      case "21":
-        let _0x561505 = $("#dataList");
-        if (_0x561505.length > 0) {
-          let _0x227bfa = _0x561505.data();
-          HTML.Skeleton(_0x561505, 3, _0x227bfa.tpl);
-          let _0x18dc6f = {
-            "type": _0x227bfa.type
-          };
-          EC.flow.get(_0x18dc6f, _0x561505, _0x227bfa, function () {
-            EC.Swiper.Roll();
-          });
-        }
-        break;
-      case "23":
-        let _0xed8cf5 = $("#dataList");
-        if (_0xed8cf5.length > 0) {
-          let _0x387d91 = _0xed8cf5.data();
-          HTML.Skeleton(_0xed8cf5, 3, _0x387d91.tpl);
-          let _0x111027 = {
-            "wd": _0x387d91.type,
-            "tag": _0x387d91.wdtag
-          };
-          EC.flow.get(_0x111027, _0xed8cf5, _0x387d91, function () {
-            EC.Swiper.Roll();
-          });
-        }
-        break;
-      case "84":
-        $(".art-so-tag").click(function () {
-          let _0x27412a = $("#dataList"),
-            _0x529c0b = _0x27412a.data();
-          _0x27412a.html("");
-          HTML.Skeleton(_0x27412a, 3, _0x529c0b.tpl);
-          let _0x39c853 = {
-            "wd": _0x529c0b.type,
-            "tag": _0x529c0b.wdtag
-          };
-          EC.flow.get(_0x39c853, _0x27412a, _0x529c0b, function () {
-            EC.Swiper.Roll();
-          });
-        });
-        break;
-      case "82":
-        let _0x320127 = $("#dataList");
-        if (_0x320127.length > 0) {
-          {
-            let _0x3c577e = _0x320127.data(),
-              _0x12f5cc = {
-                "type": _0x3c577e.type
-              };
-            $(".ec-casc-list .swiper-slide").click(function () {
-              $(this).addClass("nav-dt").siblings().removeClass("nav-dt");
-              EC.Swiper.Navs();
-              _0x12f5cc[$(this).data("type")] = $(this).data("val");
-              _0x320127.html("");
-              HTML.Skeleton(_0x320127, 3, _0x3c577e.tpl);
-              EC.flow.get(_0x12f5cc, _0x320127, _0x3c577e, function () {});
-            });
-            HTML.Skeleton(_0x320127, 3, _0x3c577e.tpl);
-            _0x12f5cc[$(this).data("type")] = $(this).data("val");
-            EC.flow.get(_0x12f5cc, _0x320127, _0x3c577e, function () {});
-          }
-        }
-        break;
-      case "302":
-        let _0x2dc71c = $("#dataList");
-        if (_0x2dc71c.length > 0) {
-          {
-            let _0xaa8c90 = _0x2dc71c.data(),
-              _0x22dcec = {};
-            $(".ec-casc-list .swiper-slide").click(function () {
-              $(".swiper-slide").removeClass("nav-dt");
-              $(this).addClass("nav-dt");
-              EC.Swiper.Navs();
-              _0x22dcec.type = $(this).data("id");
-              _0x2dc71c.html("");
-              HTML.Skeleton(_0x2dc71c, 3, _0xaa8c90.tpl);
-              EC.flow.get(_0x22dcec, _0x2dc71c, _0xaa8c90, function () {});
-            });
-            HTML.Skeleton(_0x2dc71c, 3, _0xaa8c90.tpl);
-            _0x22dcec[$(this).data("type")] = $(this).data("val");
-            EC.flow.get(_0x22dcec, _0x2dc71c, _0xaa8c90, function () {});
-          }
-        }
-        break;
-    }
-    Number(maccms.mid) === 11 && ($(".web-so-btn").click(function () {
-      let _0x265e6a = $(".website-val").val();
-      if (_0x265e6a) {
-        window.open($(".website-filter-grid .action").attr("data-url") + _0x265e6a);
-      } else _EC.Pop.Msg(language["14"], "", "error");
-    }), $(".website-filter-grid .icon").click(function () {
-      $(".website-filter-grid .action").removeClass("action");
-      $(this).addClass("action");
-    }), $(".togo").click(function () {
-      {
-        let _0x5dff14 = $(this).attr("data-id"),
-          _0x221a4f = $(this).attr("data-mi");
-        Number(_0x221a4f) === 1 ? _EC.Pop.Msg(language["15"], "", "error") : EC.Ajax(maccms.path + "/index.php/api/website?id=" + _0x5dff14, "get", "json", "", function (_0x59506e) {
-          {
-            if (_0x59506e.smg === 1) EC.Pop.Show("<div class=\"website-title\">" + _0x59506e.data.website_name + "</div><div class=\"card-text cor5\"><p>" + _0x59506e.data.website_blurb + "</p><p>" + _0x59506e.data.website_content + "</p></div><div class=\"flex website-tag top20\">" + _0x59506e.data.website_tag + "</div>", language["20"], function () {});else {
-              _EC.Pop.Msg(language["15"], "", "error");
-            }
-          }
-        });
-      }
-    }), $("#tou_gao").click(function () {
-      if (Number(EC.User.IsLogin) === 0) {
-        EC.User.Login();
-        return;
-      }
-      EC.Pop.Show("<form class=\"tg-form\"><p class=\"cor5 top10\">" + language["16"] + "</p><div class=\"region nav-link textarea border\">\n" + "<textarea class=\"tg-content cor5\" name=\"gbook_content\" style=\"width:100%;height:100%\"></textarea>\n" + "</div><div class=\"flex\"><input type=\"text\" class=\"input bj br cor5\" name=\"verify\" value=\"\" maxlength=\"4\" size=\"20\">\n" + "<img class=\"ds-verify-img\" src=\"/index.php/verify/index.html\" alt=\"" + language["19"] + "\" onclick=\"this.src = this.src+'?'\"></div>\n" + "<input type=\"button\" class=\"tg-submit button top20 submit_btn\" style=\"width:100%\" value=\"" + language["17"] + "\"></form>", language["18"], function () {
-        $(".tg-submit").click(function () {
-          EC.Gbook.Tg();
-        });
-      });
-    }));
-    $("#website_user").click(function () {
-      $.ajax({
-        "url": window.location.href + "&pdw=" + $("#website_password").val(),
-        "type": "post",
-        "dataType": "json",
-        "success": function (_0x5596fe) {
-          Number(_0x5596fe.smg) === 1 ? window.location.replace(_0x5596fe.url) : window.location.replace("https://www.kugou.com/song/#hash=8C1A6044DDF1650A82B42769C47FD645&album_id=501600");
-        }
-      });
-    });
-    $(".jp-download").click(function () {
-      let _0xebfb01 = "<p class=\"cor5 top10\">" + language["21"] + "</p><div class=\"region nav-link textarea bj\"><textarea id=\"bar2\" class=\"cor5\" style=\"width:100%;height:100%\">" + language["22"] + "《" + ecData.list[ecData.playid].name + "》" + language["23"] + ecData.list[ecData.playid].url + "</textarea></div>\n" + "<button type=\"button\" class=\"button copyBtn\" style=\"width:100%\" data-clipboard-action=\"copy\" data-clipboard-target=\"#bar2\">" + language["24"] + "</button>";
-      EC.Pop.Show(_0xebfb01, language["25"], function () {
-        $(document).on("click", ".copyBtn", function () {
-          _EC.Pop.Msg(language["26"], "", "success");
-          $(".window").remove();
-        });
-      });
-    });
-    $(".ds-pop").length > 0 && EC.Empty(EC.Cookie.Get("ecPopup")) && (EC.Cookie.Set("ecPopup", 1, 1), $("#notice").show(), $("#notice .box-bg,#notice .button").click(function () {
-      $("#notice").hide();
-    }));
-    $(".player-switch").click(function () {
-      let _0x4b8fd8 = $(".player");
-      _0x4b8fd8.hasClass("player-switch-box") ? ($(this).html("&#xe565;"), _0x4b8fd8.removeClass("player-switch-box")) : ($(this).html("&#xe566;"), _0x4b8fd8.addClass("player-switch-box"));
-    });
-    const _0x5a4566 = " %c 短视主题 by 草根® %c QQ602524950|906259831（严禁利用主题建设违法网站）";
-    console.log("\n" + _0x5a4566 + "\n", "color: #fadfa3; background: #030307; padding:5px 0; font-size:18px;", "background: #fadfa3; padding:5px 0; font-size:18px;");
-    if ($(".week-title").length > 0) {
-      let _0x2291dc = ["一", "二", "三", "四", "五", "六", "日"],
-        _0x3393b0 = new Date().getDay();
-      _0x3393b0 === 0 && (_0x3393b0 = 7);
-      let _0x21882a = $("#week-list" + _0x3393b0),
-        _0x2573e2 = _0x21882a.children();
-      _0x21882a.show();
-      $(".week-bj").addClass("week-" + _0x3393b0);
-      $(".week-key" + _0x3393b0).addClass("tim");
-      let _0x159c3d = $("#dataList"),
-        _0x275c58 = _0x159c3d.data(),
-        _0x375ef5 = {
-          "weekday": _0x2291dc[_0x3393b0 - 1],
-          "num": _0x275c58.num,
-          "by": _0x275c58.by,
-          "type": _0x275c58.type
-        };
-      HTML.Skeleton(_0x2573e2, 3, "vod");
-      _0x1bfb33(_0x375ef5, _0x2573e2, _0x275c58);
-      $(".week-title .week-select a").click(function () {
+  };
+  function q(ad) {
+    {
+      q = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (af) {
         {
-          $(this).addClass("tim").siblings().removeClass("tim");
-          let _0x1da00f = $(this).data();
-          $(".week-bj").removeClass("week-1 week-2 week-3 week-4 week-5 week-6 week-7").addClass("week-" + _0x1da00f.index);
-          $(".animated").hide();
-          _0x21882a = $("#week-list" + _0x1da00f.index);
-          _0x21882a.show();
-          _0x2573e2 = _0x21882a.children();
-          if (_0x2573e2.html().length > 50) return;
-          _0x375ef5.weekday = _0x1da00f.val;
-          HTML.Skeleton(_0x2573e2, 3, "vod");
-          _0x1bfb33(_0x375ef5, _0x2573e2, _0x275c58);
+          return typeof af;
         }
-      });
-    }
-    function _0x1bfb33(_0x294bab, _0x106d1a, _0x53a1b7) {
-      setTimeout(function () {
-        let _0x44e83b = [],
-          _0x3cc225 = Math.round(new Date() / 1000),
-          _0x5de48c = _0x294bab;
-        _0x5de48c.time = _0x3cc225;
-        _0x5de48c.key = EC.Md5(_0x3cc225);
-        EC.Ajax(_0x53a1b7.api, "post", "json", _0x5de48c, function (_0x46b9c2) {
-          {
-            if (Number(_0x46b9c2.code) === 1) {
-              {
-                _0x44e83b = HTML.Art(_0x46b9c2, _0x53a1b7);
-                if (EC.flow.empty(_0x46b9c2.list.length, _0x106d1a)) return;
-                _0x106d1a.html(_0x44e83b.join(""));
-                EC.Init.LazyLoad.update();
-                EC.Style.Footer();
-                $(".lang-bnt").length === 1 && zh_tranBody();
-              }
-            } else Number(_0x46b9c2.code) === 2 ? $(".flow-more").html(_0x46b9c2.msg) : _EC.Pop.Msg(language["27"] + _0x46b9c2.msg, "", "error");
-          }
-        }, function () {
-          _EC.Pop.Msg(language["28"], "", "error");
-        });
-      }, 100);
-    }
-  },
-  "Style": {
-    "Init": function () {
-      let _0x2eea7b = $(".theme-style"),
-        _0x842070 = EC.Cookie.Get("ec-wap_style");
-      !EC.Empty(_0x842070) && ($("body").attr("class", _0x842070), _0x842070 === "theme1" ? _0x2eea7b.html("&#xe574;").attr("data-id", 1) : _0x2eea7b.html("&#xe575;").attr("data-id", 2));
-      _0x2eea7b.click(function () {
-        EC.Style.Switch(_0x2eea7b);
-      });
-    },
-    "Set": function (_0x3ffd71) {
-      EC.Cookie.Set("ec-wap_style", _0x3ffd71);
-    },
-    "Switch": function (_0x4d5b85) {
-      let _0x11c166 = _0x4d5b85.attr("data-id");
-      Number(_0x11c166) === 1 ? ($("body").attr("class", "theme2"), _0x4d5b85.html("&#xe575;").attr("data-id", 2), EC.Style.Set("theme2")) : ($("body").attr("class", "theme1"), _0x4d5b85.html("&#xe574;").attr("data-id", 1), EC.Style.Set("theme1"));
-    },
-    "Footer": function () {
-      $(document.body).height() < $(window).height() ? $(".footer").addClass("footerLess") : $(".footer").removeClass("footerLess");
-    }
-  },
-  "Cookie": {
-    "Set": function (_0x4f15b3, _0xa8a3b7, _0x3c2e78) {
-      let _0x580816 = new Date();
-      _0x580816.setTime(_0x580816.getTime() + _0x3c2e78 * 24 * 60 * 60 * 1000);
-      document.cookie = _0x4f15b3 + "=" + encodeURIComponent(_0xa8a3b7) + ";path=/;expires=" + _0x580816.toUTCString();
-    },
-    "Get": function (_0x1a3e87) {
-      let _0x3d9156 = document.cookie.match(new RegExp("(^| )" + _0x1a3e87 + "=([^;]*)(;|$)"));
-      if (_0x3d9156 != null) return decodeURIComponent(_0x3d9156[2]);
-    },
-    "Del": function (_0x3a402a) {
-      let _0x49675b = new Date();
-      _0x49675b.setTime(_0x49675b.getTime() - 1);
-      let _0x4c6ab5 = this.Get(_0x3a402a);
-      _0x4c6ab5 != null && (document.cookie = _0x3a402a + "=" + encodeURIComponent(_0x4c6ab5) + ";path=/;expires=" + _0x49675b.toUTCString());
-    }
-  },
-  "Empty": function (_0xd119b7) {
-    return _0xd119b7 == null || _0xd119b7 === "";
-  },
-  "debounce": function (_0x2ddae6, _0x36917d) {
-    let _0x31c408 = null;
-    return function () {
-      {
-        let _0x2d8e55 = this,
-          _0x44e1f1 = arguments;
-        clearTimeout(_0x31c408);
-        _0x31c408 = setTimeout(function () {
-          _0x2ddae6.apply(_0x2d8e55, _0x44e1f1);
-        }, _0x36917d);
-      }
-    };
-  },
-  "GoBack": function () {
-    let _0x3c54cc = document.domain;
-    document.referrer.indexOf(_0x3c54cc) > 0 ? history.back() : window.location = "//" + _0x3c54cc;
-  },
-  "Ajax": function (_0xb711c1, _0x2eddcb, _0xcacc03, _0x3f9c20, _0x51e990, _0x42ad24, _0x3ef1a0) {
-    _0x2eddcb = _0x2eddcb || "get";
-    _0xcacc03 = _0xcacc03 || "json";
-    _0x3f9c20 = _0x3f9c20 || "";
-    _0x42ad24 = _0x42ad24 || "";
-    _0x3ef1a0 = _0x3ef1a0 || "";
-    $.ajax({
-      "url": _0xb711c1,
-      "type": _0x2eddcb,
-      "dataType": _0xcacc03,
-      "data": _0x3f9c20,
-      "timeout": 5000,
-      "beforeSend": function (_0x260271) {},
-      "error": function (_0x527ad3, _0x1eab60, _0x5bd066) {
-        if (_0x42ad24) _0x42ad24(_0x527ad3, _0x1eab60, _0x5bd066);
-      },
-      "success": function (_0x55cca3) {
-        _0x51e990(_0x55cca3);
-      },
-      "complete": function (_0x69550c, _0x4536d5) {
+      } : function (af) {
         {
-          if (_0x3ef1a0) _0x3ef1a0(_0x69550c, _0x4536d5);
+          return af && "function" == typeof Symbol && af.constructor === Symbol && af !== Symbol.prototype ? "symbol" : typeof af;
         }
-      }
-    });
-  },
-  "flow": {
-    "load": function (_0x2cd477) {
-      _0x2cd477 = _0x2cd477 || {};
-      let _0x2bde71 = this,
-        _0x330fb3 = 0,
-        _0x210d53,
-        _0x2b40f5,
-        _0x15c668,
-        _0x51dcea = $(_0x2cd477.elem);
-      if (!_0x51dcea[0]) return;
-      let _0x3ba347 = $(_0x2cd477.scrollElem || document),
-        _0x3459e0 = _0x2cd477.mb || 50,
-        _0x29801e = "isAuto" in _0x2cd477 ? _0x2cd477.isAuto : true,
-        _0x3903ad = _0x2cd477.end || language["29"],
-        _0x14496c = _0x2cd477.scrollElem && _0x2cd477.scrollElem !== document,
-        _0x154752 = "<i class=\"fa ds-jiantouyou\"></i>" + language["30"],
-        _0x5d9798 = $("<div class=\"flow-more cor5\"><a href=\"javascript:;\">" + _0x154752 + "</a></div>");
-      !_0x51dcea.find(".flow-more")[0] && _0x51dcea.append(_0x5d9798);
-      let _0x1e6cfc = function (_0x5b1a25, _0x7b6a06) {
-          Number(_0x330fb3) === 1 && $(".flow-more").siblings().remove();
-          _0x5b1a25 = $(_0x5b1a25);
-          _0x5d9798.before(_0x5b1a25);
-          _0x7b6a06 = Number(_0x7b6a06) === 0 ? true : null;
-          _0x7b6a06 ? _0x5d9798.html(_0x3903ad) : _0x5d9798.find("a").html(_0x154752);
-          _0x2b40f5 = _0x7b6a06;
-          _0x210d53 = null;
-          EC.Init.LazyLoad.update();
-        },
-        _0x445c62 = function () {
-          _0x210d53 = true;
-          _0x5d9798.find("a").html("<i class=\"loading3\"></i>" + language["31"]);
-          typeof _0x2cd477.done === "function" && _0x2cd477.done(++_0x330fb3, _0x1e6cfc, _0x51dcea);
-        };
-      _0x445c62();
-      _0x5d9798.find("a").on("click", function () {
-        if (_0x2b40f5) return;
-        _0x210d53 || _0x445c62();
-      });
-      if (!_0x29801e) return _0x2bde71;
-      _0x3ba347.off("scroll");
-      _0x3ba347.on("scroll", function () {
-        {
-          let _0x48e0c7 = $(this),
-            _0x42d854 = _0x48e0c7.scrollTop();
-          if (_0x15c668) clearTimeout(_0x15c668);
-          if (_0x2b40f5 || !_0x51dcea.width()) return;
-          _0x15c668 = setTimeout(function () {
-            let _0x48a6a5 = _0x14496c ? _0x48e0c7.height() : $(window).height(),
-              _0x1702ca = _0x14496c ? _0x48e0c7.prop("scrollHeight") : document.documentElement.scrollHeight;
-            _0x1702ca - _0x42d854 - _0x48a6a5 <= _0x3459e0 && (_0x210d53 || _0x445c62());
-          }, 100);
-        }
-      });
-      return _0x2bde71;
-    },
-    "empty": function (_0x1ac0a4, _0x144c44) {
-      if (Number(_0x1ac0a4) === 0) return _0x144c44.html("<div class=\"null cor5\"><img src=\"" + maccms.path2 + "static/ds3/img/null.png\" alt=\"" + language["2"] + "\"><span>" + language["32"] + "</span></div>"), true;
-      return false;
-    },
-    "get": function (_0xb8a7f8, _0x138814, _0x33d01e, _0xada6f8) {
-      _0x138814.length > 0 && EC.flow.load({
-        "elem": "#dataList",
-        "isAuto": _0x33d01e.pattern,
-        "end": _0x33d01e.txt,
-        "done": function (_0x132c28, _0x1ee7a7, _0x5abca4) {
-          setTimeout(function () {
-            let _0x1c70e0 = [],
-              _0x26ff0c = Math.ceil(new Date().getTime() / 1000),
-              _0x360f58 = $.extend(_0xb8a7f8, {
-                "page": _0x132c28,
-                "time": _0x26ff0c,
-                "key": EC.Md5(_0x26ff0c)
-              });
-            EC.Ajax(_0x33d01e.api, "post", "json", _0x360f58, function (_0x17af93) {
-              if (Number(_0x17af93.code) === 1) {
-                if (EC.flow.empty(_0x17af93.list.length, _0x5abca4)) return;
-                _0x1c70e0 = HTML.Art(_0x17af93, _0x33d01e);
-                _0x1ee7a7(_0x1c70e0.join(""), _0x132c28 < _0x17af93.pagecount);
-                _0xada6f8();
-                EC.Style.Footer();
-                $(".lang-bnt").length === 1 && zh_tranBody();
-              } else Number(_0x17af93.code) === 2 ? $(".flow-more").html(_0x17af93.msg) : _EC.Pop.Msg(language["27"] + _0x17af93.msg, "", "error");
-            }, function () {
-              _EC.Pop.Msg(language["28"], "", "error");
-            });
-          }, 100);
-        }
-      });
-    }
-  },
-  "Copy": {
-    "Init": function () {
-      EC.Width < 767 ? ($(".play-score").click(function () {
-        EC.Pop.Show($("#rating").prop("outerHTML"), language["33"], function () {});
-      }), $(".vod-detail-share").click(function () {
-        {
-          $(".vod-detail .share-box").remove();
-          let _0x193124 = "<div class=\"cor5 radius\"><span class=\"share-tips\">" + language["34"] + "</span><span id=\"bar\" class=\"share-url bj cor5\">" + window.location.href + $(document).attr("title") + "</span><button type=\"button\" class=\"share-copy bj2 ho radius copyBtn\" data-clipboard-action=\"copy\" data-clipboard-target=\"#bar\">" + language["35"] + "</button></div>";
-          EC.Pop.Show(_0x193124, language["18"], function () {
-            $(document).on("click", ".copyBtn", function () {
-              _EC.Pop.Msg(language["36"], "", "success");
-              $(".window").remove();
-            });
-          });
-          new ClipboardJS(".copyBtn");
-        }
-      })) : ($(".share-url").html(window.location.href + $(document).attr("title")), new ClipboardJS(".copyBtn"), EC.Copy.Qrcode(), $(".vod-detail-share").hover(function () {
-        $(".vod-detail .share-box").show();
-        $(document).on("click", ".copyBtn", function () {
-          $(".vod-detail .share-box").hide();
-          _EC.Pop.Msg(language["36"], "", "success");
-        });
-      }, function () {
-        $(".vod-detail .share-box").hide();
-      }));
-      $(".player-share-button").click(function () {
-        $(".player-share-box").fadeToggle();
-        $(".charge,.tips-box").hide();
-        $(".player-share-box .copyBtn").click(function () {
-          _EC.Pop.Msg(language["36"], "", "success");
-          $(".player-share-box").slideUp();
-        });
-      });
-      let _0x1c1d15 = new ClipboardJS(".CopyUel");
-      $(".CopyUel").click(function () {
-        _0x1c1d15.on("success", function () {
-          _EC.Pop.Msg(language["37"], "", "success");
-        });
-        _0x1c1d15.on("error", function () {
-          _EC.Pop.Msg(language["38"], "", "error");
-        });
-      });
-    },
-    "Qrcode": function () {
-      $(".hl-cans").each(function () {
-        if ($(this).length) {
-          $(this).qrcode({
-            "width": 120,
-            "height": 120,
-            "text": encodeURI(window.location.href)
-          });
-          function _0x322e06(_0x4609a3) {
-            {
-              let _0x11faf4 = new Image();
-              _0x11faf4.src = _0x4609a3.toDataURL("image/png");
-              return _0x11faf4;
-            }
-          }
-          let _0x24b256 = $("canvas")[0],
-            _0x125738 = _0x322e06(_0x24b256);
-          $(this).next(".share-pic").append(_0x125738);
-        }
-      });
-    }
-  },
-  "Swiper": {
-    "Navs": function () {
-      new Swiper(".nav-swiper", {
-        "observer": true,
-        "freeMode": true,
-        "slidesPerView": "auto",
-        "direction": "horizontal",
-        "on": {
-          "init": function () {
-            EC.Swiper.Nav(this.$el, this.$wrapperEl, this.virtualSize);
-          },
-          "observerUpdate": function () {
-            EC.Swiper.Nav(this.$el, this.$wrapperEl, this.virtualSize);
-          }
-        }
-      });
-    },
-    "Nav": function (_0x12b7c3, _0x37873c, _0x1a8843) {
-      if (_0x12b7c3.find(".nav-dt").length > 0) {
-        {
-          let _0x4f67e9 = _0x12b7c3.find(".nav-dt").outerWidth(true),
-            _0x45d4a9 = _0x12b7c3.find(".nav-dt")[0].offsetLeft,
-            _0x5dbf70 = _0x37873c.parent().outerWidth(true),
-            _0x34225f = parseInt(_0x1a8843);
-          _0x37873c.transition(300);
-          if (_0x45d4a9 < (_0x5dbf70 - parseInt(_0x4f67e9)) / 2) _0x37873c.transform("translate3d(0px,0px,0px)");else {
-            if (_0x45d4a9 > _0x34225f - (parseInt(_0x4f67e9) + _0x5dbf70) / 2) _0x37873c.transform("translate3d(" + (_0x5dbf70 - _0x34225f) + "px,0px,0px)");else {
-              _0x37873c.transform("translate3d(" + ((_0x5dbf70 - parseInt(_0x4f67e9)) / 2 - _0x45d4a9) + "px,0px,0px)");
-            }
-          }
-        }
-      }
-    },
-    "Slide": function () {
-      new Swiper(".slide-swiper", {
-        "autoplay": true,
-        "loop": true,
-        "slidesPerView": 1
-      });
-      new Swiper(".mySwiper", {
-        "loop": true,
-        "autoplay": true,
-        "clickable": true,
-        "slidesPerView": 1,
-        "pagination": {
-          "el": ".swiper-pagination"
-        }
-      });
-      new Swiper(".slide-swiper2", {
-        "autoplay": {
-          "disableOnInteraction": false
-        },
-        "loop": true,
-        "slidesPerView": 1,
-        "on": {
-          "init": function () {
-            {
-              let _0x2ee4fd = $(".lazy-p").eq(1).css("backgroundImage");
-              $(".slide-time-ios").css("backgroundImage", _0x2ee4fd);
-            }
-          },
-          "slideChangeTransitionEnd": function () {
-            {
-              let _0x22948b = $(".lazy-p").eq(this.realIndex - 1).css("backgroundImage");
-              $(".slide-time-ios").css("backgroundImage", _0x22948b);
-            }
-          }
-        }
-      });
-      let _0x29ed28 = new Swiper(".you-ku", {
-        "loop": true,
-        "slidesPerView": 1,
-        "autoplay": {
-          "disableOnInteraction": false
-        },
-        "pagination": {
-          "el": ".swiper-pagination"
-        },
-        "on": {
-          "slideNextTransitionEnd": function () {
-            $(".slide-nav-list li").eq(this.realIndex).addClass("on").siblings().removeClass("on");
-            _0x48d41d();
-          }
-        }
-      });
-      $(".slide-nav-list li").hover(function () {
-        _0x29ed28.slideTo($(".slide-nav-list li").index(this) + 1, 1000, false);
-        $(this).addClass("on").siblings().removeClass("on");
-        _0x48d41d();
-      });
-      function _0x48d41d() {
-        {
-          let _0x555efa = $(".slid-g .swiper-slide-active .this-100").html();
-          $(".slide-nav-link").html("<div class=\"this-100\">" + _0x555efa + "</div>");
-        }
-      }
-    },
-    "Roll": function () {
-      new Swiper(".roll", {
-        "paginationClickable": true,
-        "slidesPerView": "auto"
-      });
-    }
-  },
-  "Actor": {
-    "Detail": function () {
-      new Swiper(".list-swiper", {
-        "slidesPerView": 3,
-        "slidesPerGroup": 3,
-        "observer": true,
-        "navigation": {
-          "nextEl": ".swiper-button-next",
-          "prevEl": ".swiper-button-prev"
-        },
-        "breakpoints": {
-          2200: {
-            "slidesPerView": 10,
-            "slidesPerGroup": 10
-          },
-          1934: {
-            "slidesPerView": 9,
-            "slidesPerGroup": 9
-          },
-          1692: {
-            "slidesPerView": 8,
-            "slidesPerGroup": 8
-          },
-          1330: {
-            "slidesPerView": 7,
-            "slidesPerGroup": 7
-          },
-          767: {
-            "freeMode": true,
-            "slidesPerView": "auto",
-            "slidesPerGroup": 1
-          }
-        }
-      });
-      let _0xc0c90b = $(".star-works .actor-api");
-      _0xc0c90b.length > 0 && ($(".star-works .public-list-box").length > 0 ? _0x414f74($(".star-active").attr("data-actor")) : $(".star-works").hide());
-      $(".star-works-top .public-list-box").click(function () {
-        $(this).addClass("star-active").siblings().removeClass("star-active");
-        _0x414f74($(this).attr("data-actor"));
-      });
-      function _0x414f74(_0x49529a) {
-        let _0x12d3aa = "";
-        for (let _0xcc8c8c = 0; _0xcc8c8c < 9; _0xcc8c8c++) {
-          _0x12d3aa = _0x12d3aa + "<div class=\"public-list-box public-pic-b swiper-slide\"><div class=\"public-list-div\">" + "<a class=\"public-list-exp\"><div class=\"lazy box\"><span class=\"loadIcon spin-dot-spin\"><i class=\"spin-dot-item\"></i><i class=\"spin-dot-item\"></i>" + "<i class=\"spin-dot-item\"></i><i class=\"spin-dot-item\"></i></span></div></a></div><div class=\"public-list-button\"><a class=\"time-title box radius\"></a>" + "</div></div>";
-        }
-        _0xc0c90b.html(_0x12d3aa);
-        EC.Ajax(maccms.path + "/index.php/api/actor_vod_api?name=" + _0x49529a, "get", "json", "", function (_0x345444) {
-          Number(_0x345444.code) === 1 ? (_0x12d3aa = "", $.each(_0x345444.list, function (_0x374e44, _0x58dff1) {
-            _0x12d3aa = _0x12d3aa + "    <div class=\"public-list-box public-pic-" + _0x345444.ajax.vod_pic + " swiper-slide\">\n" + "        <div class=\"public-list-div public-list-bj\">\n" + "            <a" + HTML.Target(_0x345444.ajax.vod_target) + " class=\"public-list-exp\" href=\"" + _0x58dff1.url + "\">\n" + "                <img class=\"lazy lazy1 gen-movie-img " + maccms.vod_mask + "\" alt=\"" + _0x58dff1.name + "\" referrerpolicy=\"no-referrer\" data-src=\"" + _0x58dff1.pic + "\" />" + "                <span class=\"public-bg\"></span>\n" + "                <span class=\"public-play\"><i class=\"fa\">&#xe593;</i></span>\n" + "            </a>\n" + "        </div>\n" + "        <div class=\"public-list-button\"><a" + HTML.Target(_0x345444.ajax.vod_target) + " class=\"time-title ft4 hide\" href=\"" + _0x58dff1.url + "\" title=\"" + _0x58dff1.name + "\">" + _0x58dff1.name + "</a></div>" + "    </div>";
-          }), _0xc0c90b.html(_0x12d3aa), EC.Init.LazyLoad.update(), $(".lang-bnt").length === 1 && zh_tranBody()) : _EC.Pop.Msg(language["39"], "", "error");
-        });
-      }
-    }
-  },
-  "Pop": {
-    "Uid": "DCC147D11943AF75",
-    "Drawer": function (_0x543b38, _0x5346a2) {
-      if ($(".drawer-list").length > 0) {
-        _EC.Pop.Msg(language["40"], "", "error");
-        return;
-      }
-      $("body").append("<div class=\"drawer-list\"><div class=\"drawer-list-bg box-bg ease\" style=\"display:none\"></div><div class=\"drawer-list-box bj3\"></div></div>");
-      $(".drawer-list-box").html(_0x543b38);
-      _0x5346a2();
-      setTimeout(function () {
-        $(".drawer-list-bg").css({
-          "display": "block"
-        });
-        $("body").css({
-          "height": "100%",
-          "width": "100%",
-          "overflow": "hidden"
-        });
-        $(".drawer-list").addClass("drawer-show");
-      }, 0);
-      $(".drawer-list-bg").on("click", function () {
-        EC.Pop.DrawerDel();
-      }).on("touchmove", function () {
-        EC.Pop.DrawerDel();
-      });
-    },
-    "DrawerDel": function () {
-      $(".drawer-list-box").addClass("drawer-out");
-      $("body").css({
-        "height": "",
-        "width": "",
-        "overflow": ""
-      });
-      $(".drawer-list-bg").css({
-        "display": "none"
-      });
-      setTimeout(function () {
-        $(".drawer-list").remove();
-      }, 100);
-    },
-    "Show": function (_0x218ec2, _0x48c631, _0x2a1029) {
-      Number($(".window").length) !== 1 && EC.Pop.RemoveWin();
-      $("body").append("<div class=\"window\"><div class=\"box-bg\"></div><div class=\"window-box\"><div class=\"topfadeInUp animated bj3 cor4\"><div class=\"window-title rel\"><h2 class=\"subscript ft4 br\"></h2><a class=\"window-off fa ds-guanbi\"></a></div><div class=\"window-content\"></div></div></div></div>");
-      $(".window .subscript").html(_0x48c631);
-      $(".window-content").html(_0x218ec2);
-      $(".window-box").addClass("window-show");
-      $(document).on("click", ".box-bg", function () {
-        $(this).parent().remove();
-      });
-      $(document).on("click", ".window-off", function () {
-        $(this).parent().parent().parent().parent().remove();
-      });
-      _0x2a1029();
-    },
-    "RemoveWin": function () {
-      $(".window").remove();
-    }
-  },
-  "Toggle": function () {
-    $(".switch-button a").click(function () {
-      $(this).addClass("selected").siblings().removeClass("selected");
-      let _0x7c617c = $(".switch-button a").index(this),
-        _0x32fcff = $(".switch-box .check").eq(_0x7c617c);
-      _0x32fcff.fadeIn(800).siblings().hide();
-      _0x32fcff.addClass("selected").siblings().removeClass("selected");
-    });
-  },
-  "player": {
-    "player_jx": function (_0xdebfa, _0x2d91dc) {
-      let _0x42c98e = {},
-        _0x2040b0 = EC.Cookie.Get("player_api");
-      if (!EC.Empty(_0x2040b0)) _0x42c98e = JSON.parse(_0x2040b0);else {
-        {
-          let _0x4e4ba3 = _0xdebfa.split("#");
-          for (let _0x45b131 = 0; _0x45b131 < _0x4e4ba3.length; _0x45b131++) {
-            let _0x135770 = _0x4e4ba3[_0x45b131].split("$"),
-              _0x17d24e = _0x135770[1].split(",");
-            for (let _0xb2cdbe = 0; _0xb2cdbe < _0x17d24e.length; _0xb2cdbe++) {
-              _0x42c98e.hasOwnProperty(_0x17d24e[_0xb2cdbe]) ? _0x42c98e[_0x17d24e[_0xb2cdbe]][Object.keys(_0x42c98e[_0x17d24e[_0xb2cdbe]]).length] = {
-                "name": _0x135770[0],
-                "api": _0x135770[2]
-              } : _0x42c98e[_0x17d24e[_0xb2cdbe]] = {
-                0: {
-                  "name": _0x135770[0],
-                  "api": _0x135770[2]
-                }
-              };
-            }
-          }
-          EC.Cookie.Set("player_api", JSON.stringify(_0x42c98e));
-        }
-      }
-      let _0x2ac570 = "";
-      for (let _0xdf4e94 in _0x42c98e) {
-        {
-          if (_0xdf4e94 == _0x2d91dc) {
-            {
-              let _0xd91b01 = _0x42c98e[_0xdf4e94];
-              for (let _0x23d79e = 0; _0x23d79e < Object.keys(_0xd91b01).length; _0x23d79e++) {
-                !EC.Empty(maccms.jx_index) && _0x23d79e == maccms.jx_index ? _0x2ac570 = _0x2ac570 + "<a class=\"box radius hide border bj2\" href=\"javascript:\" data-api=\"" + _0xd91b01[_0x23d79e].api + "\">" + _0xd91b01[_0x23d79e].name + "</a>" : _0x2ac570 = _0x2ac570 + "<a class=\"box radius hide border\" href=\"javascript:\" data-api=\"" + _0xd91b01[_0x23d79e].api + "\">" + _0xd91b01[_0x23d79e].name + "</a>";
-              }
-            }
-          }
-        }
-      }
-      _0x2ac570.length > 1 && $(".line-switch").html(_0x2ac570);
-    }
-  },
-  "User": {
-    "BoxShow": 0,
-    "IsLogin": 0,
-    "Init": function () {
-      !EC.Empty(EC.Cookie.Get("user_id")) && (EC.User.IsLogin = 1);
-      $(document).on("click", ".head-user", function () {
-        EC.Empty(EC.Cookie.Get("user_id")) ? EC.User.Login() : window.location.href = $(this).attr("data-url");
-      });
-      $(document).on("click", ".head-user-out", function () {
-        EC.User.Logout();
-      });
-    },
-    "Login": function () {
-      EC.Ajax(maccms.path + "/index.php/user/ajax_login", "post", "json", "", function (_0x6a3dcc) {
-        EC.Pop.Show(_0x6a3dcc, language["41"], function () {
-          $("body").on("click", "#wp-submit", function () {
-            $(this).unbind("click");
-            EC.Ajax(maccms.path + "/index.php/user/login", "post", "json", $(".login-form").serialize(), function (_0x134cad) {
-              _EC.Pop.Msg(_0x134cad.msg, "", "error");
-              Number(_0x134cad.code) === 1 && location.reload();
-            });
-          });
-        });
-      }, function () {
-        _EC.Pop.Msg(language["42"], "", "error");
-      });
-    },
-    "Logout": function () {
-      $(this).unbind("click");
-      EC.Ajax(maccms.path + "/index.php/user/logout", "post", "json", "", function (_0x197ff4) {
-        _EC.Pop.Msg(_0x197ff4.msg);
-        Number(_0x197ff4.code) === 1 && location.reload();
-      });
-    },
-    "Collection": function () {
-      $("body").on("click", ".collection", function () {
-        if (Number(EC.User.IsLogin) === 0) {
-          {
-            EC.User.Login();
-            return;
-          }
-        }
-        let _0x43337f = $(this);
-        _0x43337f.attr("data-id") && EC.Ajax(maccms.path + "/index.php/user/ajax_ulog/?ac=set&mid=" + _0x43337f.attr("data-mid") + "&id=" + _0x43337f.attr("data-id") + "&type=" + _0x43337f.attr("data-type"), "get", "json", "", function () {
-          _EC.Pop.Msg("收藏成功");
-        });
-      });
-    }
-  },
-  "Ulog": {
-    "Init": function () {
-      EC.Ulog.Set();
-    },
-    "Set": function () {
-      let _0x2edb22 = $(".ds-log-set");
-      _0x2edb22.attr("data-mid") && $.get(maccms.path + "/index.php/api/ulog/?ac=set&mid=" + _0x2edb22.attr("data-mid") + "&id=" + _0x2edb22.attr("data-id") + "&sid=" + _0x2edb22.attr("data-sid") + "&nid=" + _0x2edb22.attr("data-nid") + "&type=" + _0x2edb22.attr("data-type"));
-    }
-  },
-  "Hits": {
-    "Init": function () {
-      let _0xc965b6 = $(".ds-hits");
-      if (Number(_0xc965b6.length) === 0) {
-        return;
-      }
-      EC.Ajax(maccms.path + "/index.php/ajax/hits?mid=" + _0xc965b6.attr("data-mid") + "&id=" + _0xc965b6.attr("data-id") + "&type=update", "get", "json", "", function (_0xf19a88) {
-        Number(_0xf19a88.code) === 1 && $(".ds-hits").each(function (_0x43894b) {
-          {
-            let _0x154d7e = $(".ds-hits").eq(_0x43894b).attr("data-type");
-            _0x154d7e !== "insert" && $("." + _0x154d7e).html(eval("(r.data." + _0x154d7e + ")"));
-          }
-        });
-      });
-    }
-  },
-  "Md5": function (_0x1a1b4d) {
-    return hex_md5("DS" + _0x1a1b4d + EC.Pop.Uid);
-  },
-  "Score": function () {
-    let _0x13feef = 0;
-    $(document).on("click", "#rating li", function () {
-      if (_0x13feef > 0) _EC.Pop.Msg(language["43"]);else {
-        {
-          let _0x129950 = $("#rating").data();
-          EC.Ajax(maccms.path + "/index.php/ajax/score?mid=" + _0x129950.mid + "&id=" + _0x129950.id + "&score=" + $(this).attr("val") * 2, "post", "json", "", function (_0x4a22b9) {
-            _EC.Pop.Msg(_0x4a22b9.msg);
-            _0x13feef = 1;
-          }, function () {
-            _EC.Pop.Msg(language["44"], "", "error");
-          });
-        }
-      }
-      $(this).nextAll().removeClass("active");
-      $(this).prevAll().addClass("active");
-      $(this).addClass("active");
-    });
-  },
-  "Suggest": {
-    "Init": function (_0x16b609, _0x575c8f) {
-      if (Number(maccms.so_off) === 1) try {
-        $(_0x16b609).autocomplete(maccms.path + "/index.php/ajax/suggest?mid=" + _0x575c8f, {
-          "inputClass": "search-input",
-          "resultsClass": "results",
-          "loadingClass": "loading",
-          "appendTo": ".completion",
-          "minChars": 1,
-          "matchSubset": 0,
-          "cacheLength": 10,
-          "multiple": false,
-          "matchContains": true,
-          "autoFill": false,
-          "dataType": "json",
-          "parse": function (_0x339b25) {
-            if (Number(_0x339b25.code) === 1) {
-              let _0x23292b = [];
-              $.each(_0x339b25.list, function (_0xfc4dae, _0x97700f) {
-                _0x97700f.url = _0x339b25.url;
-                _0x23292b[_0xfc4dae] = {
-                  "data": _0x97700f
-                };
-              });
-              return _0x23292b;
-            } else {
-              return {
-                "data": ""
-              };
-            }
-          },
-          "formatItem": function (_0x485280) {
-            return _0x485280.name;
-          },
-          "formatResult": function (_0x30dc2b) {
-            return _0x30dc2b.text;
-          }
-        }).result(function (_0x46f774, _0x386a3b) {
-          {
-            $(_0x16b609).val(_0x386a3b.name);
-            let _0x400267 = _0x386a3b.url.replace("mac_wd", encodeURIComponent(_0x386a3b.name));
-            EC.Records.Set(_0x386a3b.name, _0x400267);
-            location.href = _0x400267;
-          }
-        });
-      } catch (_0x51a360) {}
-    }
-  },
-  "History": {
-    "BoxShow": 0,
-    "Limit": 30,
-    "Days": 7,
-    "Json": "",
-    "Msg": "<div class=\"null cor5\"><img src=\"" + maccms.path2 + "static/ds3/img/null.png\" alt=\"" + language["2"] + "\"><span>" + language["45"] + "</span></div>",
-    "Init": function () {
-      let _0xb720de = [];
-      if (this.Json) _0xb720de = this.Json;else {
-        {
-          let _0x83bfd0 = EC.Cookie.Get("mac_history");
-          !EC.Empty(_0x83bfd0) && (_0xb720de = eval(_0x83bfd0));
-        }
-      }
-      let _0xea2303 = "";
-      if (_0xb720de.length > 0) {
-        for (let _0x212e86 = 0; _0x212e86 < _0xb720de.length; _0x212e86++) {
-          _0xea2303 += "<li><a class=\"history-a flex\" href=\"" + _0xb720de[_0x212e86].link + "\" target=\"video\" title=\"" + _0xb720de[_0x212e86].name + "\"><img class=\"lazy lazy1\" referrerpolicy=\"no-referrer\" alt=\"" + _0xb720de[_0x212e86].name + "\" data-src=\"" + _0xb720de[_0x212e86].pic + "\"/>" + "<div class=\"history-r\"><div class=\"hide2\">" + _0xb720de[_0x212e86].name + "</div><div><span class=\"cor5\">" + _0xb720de[_0x212e86].mid + "</span></div></div></a></li>";
-        }
-      } else _0xea2303 += this.Msg;
-      $(".locality-history ul").html(_0xea2303);
-      $("#l_history").click(function () {
-        EC.History.Clear();
-      });
-      let _0x1604d0 = $(".ds-history-set");
-      _0x1604d0.attr("data-name") && EC.History.Set(_0x1604d0.attr("data-name"), _0x1604d0.attr("data-link"), _0x1604d0.attr("data-pic"), _0x1604d0.attr("data-mid"));
-    },
-    "Set": function (_0x5444d1, _0x4bf85b, _0x2bdde0, _0x5bda15) {
-      !_0x4bf85b && (_0x4bf85b = document.URL);
-      let _0x3fe158 = EC.Cookie.Get("mac_history"),
-        _0x982858 = "";
-      if (!EC.Empty(_0x3fe158)) {
-        this.Json = eval(_0x3fe158);
-        for (let _0x42a068 = 0; _0x42a068 < this.Json.length; _0x42a068++) {
-          if (this.Json[_0x42a068].link === _0x4bf85b) return false;
-        }
-        _0x982858 = "{log:[{\"name\":\"" + _0x5444d1 + "\",\"link\":\"" + _0x4bf85b + "\",\"pic\":\"" + _0x2bdde0 + "\",\"mid\":\"" + _0x5bda15 + "\"},";
-        for (let _0x4dbf0a = 0; _0x4dbf0a < this.Json.length; _0x4dbf0a++) {
-          {
-            if (_0x4dbf0a <= this.Limit && this.Json[_0x4dbf0a]) {
-              let _0x1f7585 = this.Json[_0x4dbf0a].name;
-              if (_0x1f7585 === _0x5444d1) {} else _0x982858 += "{\"name\":\"" + this.Json[_0x4dbf0a].name + "\",\"link\":\"" + this.Json[_0x4dbf0a].link + "\",\"pic\":\"" + this.Json[_0x4dbf0a].pic + "\",\"mid\":\"" + this.Json[_0x4dbf0a].mid + "\"},";
-            } else break;
-          }
-        }
-        _0x982858 = _0x982858.substring(0, _0x982858.lastIndexOf(","));
-        _0x982858 += "]}";
-      } else {
-        _0x982858 = "{log:[{\"name\":\"" + _0x5444d1 + "\",\"link\":\"" + _0x4bf85b + "\",\"pic\":\"" + _0x2bdde0 + "\",\"mid\":\"" + _0x5bda15 + "\"}]}";
-      }
-      this.Json = eval(_0x982858);
-      EC.Cookie.Set("mac_history", _0x982858, this.Days);
-    },
-    "Clear": function () {
-      EC.Cookie.Del("mac_history");
-      $(".locality-history ul").html(this.Msg);
-    }
-  },
-  "Records": {
-    "Limit": 8,
-    "Days": 7,
-    "Json": "",
-    "Init": function () {
-      EC.Records.Click();
-      let _0x2a917c = [];
-      if (this.Json) _0x2a917c = this.Json;else {
-        let _0x4eafe6 = EC.Cookie.Get("DS_Records");
-        !EC.Empty(_0x4eafe6) && (_0x2a917c = eval(_0x4eafe6));
-      }
-      if (_0x2a917c.length > 0) {
-        {
-          let _0x17ba4f = "";
-          for (let _0x346b64 = 0; _0x346b64 < _0x2a917c.length; _0x346b64++) {
-            _0x17ba4f += "<a href=\"" + _0x2a917c[_0x346b64].url + "?wd=" + _0x2a917c[_0x346b64].name + "\" class=\"public-list-b bj border\">" + _0x2a917c[_0x346b64].name + "</a>";
-          }
-          $(".records-list").html(_0x17ba4f);
-        }
-      } else $(".records-list").html("<span class=\"cor5\">" + language["46"] + "</span>");
-      $(document).on("click", "#re_del", function () {
-        EC.Records.Clear();
-      });
-    },
-    "Set": function (_0x195772, _0x15d300) {
-      let _0x282981 = EC.Cookie.Get("DS_Records"),
-        _0x27e22c = {};
-      if (!EC.Empty(_0x282981)) {
-        {
-          this.Json = eval(_0x282981);
-          for (let _0x283607 = 0; _0x283607 < this.Json.length; _0x283607++) {
-            if (this.Json[_0x283607].name === _0x195772) return false;
-          }
-          _0x27e22c = "{log:[{\"name\":\"" + _0x195772 + "\",\"url\":\"" + _0x15d300 + "\"},";
-          for (let _0xadbb5e = 0; _0xadbb5e < this.Json.length; _0xadbb5e++) {
-            if (_0xadbb5e <= this.Limit && this.Json[_0xadbb5e]) {
-              let _0x471bcf = this.Json[_0xadbb5e].name;
-              if (_0x471bcf === _0x195772) {} else _0x27e22c += "{\"name\":\"" + this.Json[_0xadbb5e].name + "\",\"url\":\"" + this.Json[_0xadbb5e].url + "\"},";
-            } else {
-              break;
-            }
-          }
-          _0x27e22c = _0x27e22c.substring(0, _0x27e22c.lastIndexOf(","));
-          _0x27e22c += "]}";
-        }
-      } else {
-        _0x27e22c = "{log:[{\"name\":\"" + _0x195772 + "\",\"url\":\"" + _0x15d300 + "\"}]}";
-      }
-      this.Json = eval(_0x27e22c);
-      EC.Cookie.Set("DS_Records", _0x27e22c, this.Days);
-    },
-    "Clear": function () {
-      EC.Cookie.Del("DS_Records");
-      $(".records-list").html("<span class=\"cor5\">" + language["47"] + "</span>");
-    },
-    "Click": function () {
-      $(".head .this-select").click(function () {
-        if ($(this).attr("data-id") === "1") {
-          $(this).attr("data-id", "0").find("i").html("&#xe564;");
-          let _0xd3429e = $(".select-list .ease").html();
-          $(".head .this-search").append("<div class=\"this-search-select bj radius br cor4\">" + _0xd3429e + "</div>");
-        } else $(this).attr("data-id", "1").find("i").html("&#xe563;"), $(".head .this-search-select").remove();
-      });
-      $("body").on("click", ".head .this-search-select span", function () {
-        {
-          let _0x5c89d5 = $(this).data();
-          $(".head .this-select").html(_0x5c89d5.name + "<i class=\"fa\">&#xe563;</i>").attr("data-id", "1");
-          $("#search2").attr("action", _0x5c89d5.url);
-          $(".head .this-search-select").remove();
-        }
-      });
-      $(".head .this-search .ds-sousuo").click(function () {
-        let _0x3b8919 = $(".head .this-input").val(),
-          _0x37fc99 = $("#search2").attr("action");
-        if (EC.Empty(_0x3b8919)) event.preventDefault(), _EC.Pop.Msg(language["48"], "", "error");else {
-          if ($(".lang-bnt").length === 1) {
-            const _0x1e663a = transChinese(_0x3b8919);
-            $(".head .this-input").val(_0x1e663a);
-            _0x3b8919 = _0x1e663a;
-          }
-          EC.Records.Set(_0x3b8919, _0x37fc99);
-        }
-      });
-      $(".head .this-input").click(function () {
-        let _0x2cedbe = $(".public-list-new").html(),
-          _0x4767c5 = $(".pop-list-body .wap-diy-vod-e").html();
-        $(".head .this-search").append("<div class=\"this-search-get\"><div class=\"box radius\"><div>" + _0x2cedbe + "</div>" + "<div class=\"wap-diy-vod-e search-hot\">" + _0x4767c5 + "</div>" + "</div></div>");
-      }).keydown(function () {
-        $(".head .this-search-get").remove();
-      });
-      $(".head .this-search").mouseleave(function () {
-        $(".head .this-search-get").remove();
-      });
-      $(".select-name").click(function () {
-        $(this).attr("data-id") === "1" ? ($(this).attr("data-id", "0").children().html("&#xe564;"), $(".select-list").show()) : ($(this).attr("data-id", "1").children().html("&#xe563;"), $(".select-list").hide());
-      });
-      $(".select-list span").click(function () {
-        {
-          let _0x509e3c = $(this).data();
-          $(".select-name").html(_0x509e3c.name + "<i class=\"fa cor4\">&#xe563;</i>").attr("data-id", "1");
-          $("#search").attr("action", _0x509e3c.url);
-          $(".select-list").hide();
-        }
-      });
-      $(".search-input-sub").click(function () {
-        {
-          let _0xa421e = $(".search-input").val(),
-            _0x52465c = $("#search").attr("action");
-          if (EC.Empty(_0xa421e)) event.preventDefault(), _EC.Pop.Msg(language["48"], "", "error");else {
-            {
-              if ($(".lang-bnt").length === 1) {
-                const _0x107674 = transChinese(_0xa421e);
-                $(".search-input").val(_0x107674);
-                _0xa421e = _0x107674;
-              }
-              EC.Records.Set(_0xa421e, _0x52465c);
-            }
-          }
-        }
-      });
-    }
-  },
-  "Remaining": function (_0x228bc1, _0x192b99, _0x57d11b) {
-    let _0x4ea7dc = _0x192b99 - $(_0x228bc1).val().length;
-    _0x4ea7dc < 0 && (_0x4ea7dc = 0, $(_0x228bc1).val($(_0x228bc1).val().substr(0, 200)));
-    $(_0x57d11b).text(_0x4ea7dc);
-  },
-  "Digg": function () {
-    $("body").on("click", ".digg-link", function () {
-      let _0x5d044a = $(this);
-      _0x5d044a.attr("data-id") && EC.Ajax(maccms.path + "/index.php/ajax/digg.html?mid=" + _0x5d044a.attr("data-mid") + "&id=" + _0x5d044a.attr("data-id") + "&type=" + _0x5d044a.attr("data-type"), "get", "json", "", function (_0x77d1da) {
-        _0x5d044a.addClass("disabled");
-        Number(_0x77d1da.code) === 1 ? _0x5d044a.attr("data-type") === "up" ? _0x5d044a.find(".digg-num").html(_0x77d1da.data.up) : _0x5d044a.find(".digg-num").html(_0x77d1da.data.down) : _EC.Pop.Msg(_0x77d1da.msg);
-      });
-    });
-  },
-  "Gbook": {
-    "Login": 0,
-    "Verify": 0,
-    "Init": function () {
-      let _0x4bd68d = $(".gbook-form").data();
-      EC.Gbook.Login = _0x4bd68d.login;
-      EC.Gbook.Verify = _0x4bd68d.verify;
-      let _0x9a7af2 = $("body");
-      _0x9a7af2.on("keyup", ".gbook-content", function () {
-        EC.Remaining($(this), 200, ".gbook_remaining");
-      });
-      _0x9a7af2.on("focus", ".gbook-content", function () {
-        Number(EC.Gbook.Login) === 1 && Number(EC.User.IsLogin) !== 1 && EC.User.Login();
-      });
-      _0x9a7af2.on("click", ".gbook-submit", function () {
-        EC.Gbook.Submit();
-      });
-    },
-    "Show": function (_0x4d5300) {
-      EC.Ajax(maccms.path + "/index.php/gbook/index?page=" + _0x4d5300, "post", "json", "", function (_0x191f1c) {
-        $(".mac_gbook_box").html(_0x191f1c);
-      }, function () {
-        $(".mac_gbook_box").html(language["49"]);
-      });
-    },
-    "Submit": function () {
-      if (EC.Empty($(".gbook-content").val())) {
-        _EC.Pop.Msg(language["50"], "", "error");
-        return false;
-      }
-      EC.Ajax(maccms.path + "/index.php/gbook/saveData", "post", "json", $(".gbook-form").serialize(), function (_0xb92ae6) {
-        _EC.Pop.Msg(_0xb92ae6.msg);
-        Number(_0xb92ae6.code) === 1 ? location.reload() : Number(EC.Gbook.Verify) === 1 && EC.Verify.Refresh();
-      });
-    },
-    "Tg": function () {
-      if (EC.Empty($(".tg-content").val())) return _EC.Pop.Msg(language["51"], "", "error"), false;
-      EC.Ajax(maccms.path + "/index.php/api/tougao", "post", "json", $(".tg-form").serialize(), function (_0x1b9a69) {
-        _EC.Pop.Msg(_0x1b9a69.msg);
-        Number(_0x1b9a69.code) === 1 ? location.reload() : EC.Verify.Refresh();
-      });
-    },
-    "Report": function (_0x4807c0) {
-      EC.Ajax(maccms.path + "/index.php/gbook/report.html?id=" + _0x4807c0.id + "&name=" + encodeURIComponent(_0x4807c0.url + location.href), "post", "json", "", function (_0x284ebb) {
-        EC.Pop.Show(_0x284ebb, language["52"], function () {
-          let _0x6dc4d = $(".gbook-form").data();
-          EC.Gbook.Login = _0x6dc4d.login;
-          EC.Gbook.Verify = _0x6dc4d.verify;
-          EC.Gbook.Init();
-        });
-      }, function () {
-        _EC.Pop.Msg(language["49"], "", "error");
-      });
-    }
-  },
-  "Comment": {
-    "Login": 0,
-    "Verify": 0,
-    "Init": function () {
-      let _0x21414e = $("body");
-      _0x21414e.on("click", ".comment-face-box img", function () {
-        {
-          let _0x46292a = $(this).parent().parent().parent().parent().find(".comment-content");
-          $(_0x46292a).val($(_0x46292a).val() + "[em:" + $(this).attr("data-id") + "]");
-        }
-      });
-      _0x21414e.on("click", ".comment-face-panel", function () {
-        $(this).parent().parent().find(".comment-face-box").fadeToggle();
-      });
-      _0x21414e.on("click", ".face-close", function () {
-        $(".comment-face-box").hide();
-      });
-      _0x21414e.on("click", ".comment-page", function () {
-        EC.Comment.Show($(this).attr("data-page"));
-      });
-      _0x21414e.on("keyup", ".comment-content", function () {
-        EC.Remaining($(this), 200, $(".comment-remaining"));
-      });
-      _0x21414e.on("focus", ".comment-content", function () {
-        Number(EC.Comment.Login) === 1 && Number(EC.User.IsLogin) !== 1 && EC.User.Login();
-      });
-      _0x21414e.on("click", ".comment-report", function () {
-        let _0x98a888 = $(this);
-        $(this).attr("data-id") && EC.Ajax(maccms.path + "/index.php/comment/report.html?id=" + _0x98a888.attr("data-id"), "get", "json", "", function (_0x3b8ba9) {
-          _0x98a888.addClass("disabled");
-          _EC.Pop.Msg(language["53"], "", "success");
-        });
-      });
-      _0x21414e.on("click", ".comment-reply-button", function () {
-        {
-          let _0xead986 = $(this);
-          if (_0xead986.attr("data-id")) {
-            let _0x38a022 = _0xead986.html();
-            $(".comment-reply-form").remove();
-            if (_0x38a022 === language["54"]) return _0xead986.html("&#xe573;"), false;
-            let _0x1ca706 = $(".comment-form").prop("outerHTML"),
-              _0x47f0d3 = $(_0x1ca706);
-            _0x47f0d3.addClass("comment-reply-form");
-            _0x47f0d3.find("input[name=\"comment_pid\"]").val(_0xead986.attr("data-id"));
-            _0xead986.parent().parent().after(_0x47f0d3);
-            $(".comment-reply-button").html("&#xe573;");
-            _0xead986.html(language["54"]);
-          }
-        }
-      });
-      _0x21414e.on("click", ".comment-submit", function () {
-        let _0x40ad90 = $(this);
-        EC.Comment.Submit(_0x40ad90);
-      });
-    },
-    "Show": function (_0x297077) {
-      let _0x5e2320 = $(".ds-comment");
-      _0x5e2320.length > 0 && EC.Ajax(maccms.path + "/index.php/comment/ajax.html?rid=" + _0x5e2320.attr("data-id") + "&mid=" + _0x5e2320.attr("data-mid") + "&page=" + _0x297077, "get", "json", "", function (_0x1fe7f3) {
-        $(".ds-comment").html(_0x1fe7f3);
-        $(".lang-bnt").length === 1 && zh_tranBody();
-      }, function () {
-        _EC.Pop.Msg(language["49"], "", "error");
-      });
-    },
-    "Submit": function (_0xd2bcc7) {
-      let _0x5df98e = _0xd2bcc7.parents("form");
-      if ($(_0x5df98e).find(".comment-content").val() === "") {
-        _EC.Pop.Msg(language["55"], "", "error");
-        return false;
-      }
-      let _0x1fad40 = $(".ds-comment").data();
-      if (EC.Empty(_0x1fad40.mid)) {
-        _EC.Pop.Msg(language["56"], "", "error");
-        return false;
-      }
-      if (EC.Empty(_0x1fad40.id)) return _EC.Pop.Msg(language["57"], "", "error"), false;
-      EC.Ajax(maccms.path + "/index.php/comment/saveData", "post", "json", $(_0x5df98e).serialize() + "&comment_mid=" + _0x1fad40.mid + "&comment_rid=" + _0x1fad40.id, function (_0xbf37b9) {
-        _EC.Pop.Msg(_0xbf37b9.msg);
-        if (Number(_0xbf37b9.code) === 1) {
-          EC.Comment.Show(1);
-        } else {
-          if (Number(EC.Comment.Verify) === 1) {
-            EC.Verify.Refresh();
-          }
-        }
-      });
-    }
-  },
-  "Verify": {
-    "Init": function () {
-      EC.Verify.Click();
-      $(".verify-submit").click(function () {
-        {
-          let _0x50141f = $("input[name=\"verify\"]").val();
-          EC.Ajax(maccms.path + "/index.php/ajax/verify_check?type=" + $(this).data("type") + "&verify=" + _0x50141f, "post", "json", "", function (_0x206cc3) {
-            if (Number(_0x206cc3.code) === 1) location.reload();else {
-              _EC.Pop.Msg(_0x206cc3.msg);
-              EC.Verify.Refresh();
-            }
-          }, function () {
-            _EC.Pop.Msg(language["58"], "", "error");
-            EC.Verify.Refresh();
-          });
-        }
-      });
-    },
-    "Click": function () {
-      $("body").on("click", "img.ds-verify-img", function () {
-        $(this).attr("src", maccms.path + "/index.php/verify/index.html?r=" + Math.random());
-      });
-    },
-    "Refresh": function () {
-      $(".ds-verify-img").attr("src", maccms.path + "/index.php/verify/index.html?r=" + Math.random());
-    },
-    "Show": function () {
-      return "<img class=\"ds-verify-img\" src=\"" + maccms.path + "/index.php/verify/index.html?\" alt=\"" + language["19"] + "\" title=\"" + language["59"] + "\">";
-    }
-  },
-  "QiAnDao": {
-    "Fun": function (_0x1b7080) {
-      let _0x432ae7 = $("#qiAnDao-list"),
-        _0x5540a6 = "",
-        _0x1f2719 = new Date(),
-        _0x44f2d3 = new Date(_0x1f2719.getFullYear(), parseInt(_0x1f2719.getMonth()), 1).getDay(),
-        _0x5cec52 = new Date(_0x1f2719.getFullYear(), parseInt(_0x1f2719.getMonth() + 1), 0),
-        _0x225fdb = _0x5cec52.getDate();
-      $(".qiAnDao-bj").text(_0x1f2719.getMonth() + 1);
-      for (let _0xc0aef3 = 0; _0xc0aef3 < 42; _0xc0aef3++) {
-        _0x5540a6 += "<li></li>";
-      }
-      _0x432ae7.html(_0x5540a6);
-      let _0x5beed4 = _0x432ae7.find("li");
-      for (let _0x10e8b6 = 0; _0x10e8b6 < _0x225fdb; _0x10e8b6++) {
-        let _0xf0c23 = parseInt(_0x10e8b6 + 1);
-        _0x5beed4.eq(_0x10e8b6 + _0x44f2d3).html("<em>" + _0xf0c23 + "</em>").addClass("date" + _0xf0c23);
-        if (_0x1b7080.length > 0) for (let _0x55d661 = 0; _0x55d661 < _0x1b7080.length; _0x55d661++) {
-          _0xf0c23 === _0x1b7080[_0x55d661] && _0x5beed4.eq(_0x10e8b6 + _0x44f2d3).addClass("nav-dt");
-        }
-      }
-      $(".qiAnDao-con").after("<style>#qiAnDao-list li:nth-child(n+" + (_0x225fdb + _0x44f2d3 + 1) + ") {display: none}</style>").addClass("qiAnDao-show");
-      $(".date" + _0x1f2719.getDate() + ":not(.nav-dt)").addClass("able-qiAnDao");
-      $(".qiAnDao-top,.able-qiAnDao").click(function () {
-        EC.Ajax(maccms.path + "/index.php/qian/sign", "get", "json", "", function (_0x1b3743) {
-          Number(_0x1b3743.code) === 0 ? _EC.Pop.Msg(_0x1b3743.msg, "", "error") : (_EC.Pop.Msg(language["60"] + _0x1b3743.reward, "", "success"), $(".able-qiAnDao").addClass("nav-dt"), $(".qiAnDao-top").addClass("nav-dt"));
-        }, function () {
-          _EC.Pop.Msg(r.msg, "", "error");
-        });
-      });
-      $(".qiAnDao-gz-bnt").click(function () {
-        $(".qiAnDao-bottom").show();
-      });
-      $(".qiAnDao-bottom a").click(function () {
-        $(".qiAnDao-bottom").hide();
-      });
-      $(".qiAnDao-gz-off").click(function () {
-        $(".qiAnDao-con").hide();
-      });
-    },
-    "Init": function () {
-      $("#qiAnDao_bnt").click(function () {
-        if (Number(EC.User.IsLogin) === 0) {
-          {
-            EC.User.Login();
-            return;
-          }
-        }
-        if (Number($(".qiAnDao-show").length) === 0) $("#qiAnDao_2,.qiAnDao-top").hide(), $("#qiAnDao_1,.qiAnDao-con").show(), EC.Ajax(maccms.path + "/index.php/qian/days", "get", "json", "", function (_0x18b956) {
-          if (Number(_0x18b956.code) === 1) {
-            EC.QiAnDao.Fun(_0x18b956.data);
-            setTimeout(function () {
-              $("#qiAnDao_2,.qiAnDao-top").show();
-              $("#qiAnDao_1").hide();
-            }, 1000);
-          } else {
-            $(".qiAnDao-con").hide();
-            _EC.Pop.Msg(_0x18b956.msg, "", "error");
-          }
-        }, function () {
-          $("#qiAnDao_1").html(language["42"]);
-        });else {
-          $(".qiAnDao-show").show();
-        }
-      });
+      };
+      return q(ad);
     }
   }
-};
-$(function () {
-  EC.Style.Init();
-  EC.Init();
-  EC.Verify.Init();
-  EC.User.Init();
-  EC.Records.Init();
-  EC.Suggest.Init(".mac_wd", 1, "");
-  EC.History.Init();
-  EC.Digg();
-  EC.Score();
-  EC.Copy.Init();
-  EC.User.Collection();
-  EC.Ulog.Init();
-  EC.Hits.Init();
-  EC.Toggle();
-  EC.QiAnDao.Init();
-});
+  function z(ad, ae) {
+    {
+      var ag = "undefined" != typeof Symbol && ad[Symbol.iterator] || ad["@@iterator"];
+      if (!ag) {
+        {
+          if (Array.isArray(ad) || (ag = function (am, an) {
+            {
+              if (am) {
+                {
+                  if ("string" == typeof am) {
+                    return B(am, an);
+                  }
+                  var ap = {}.toString.call(am).slice(8, -1);
+                  "Object" === ap && am.constructor && (ap = am.constructor.name);
+                  return "Map" === ap || "Set" === ap ? Array.from(am) : "Arguments" === ap || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(ap) ? B(am, an) : undefined;
+                }
+              }
+            }
+          }(ad)) || ae && ad && "number" == typeof ad.length) {
+            {
+              ag && (ad = ag);
+              var ah = 0;
+              var ai = function () {};
+              return {
+                s: ai,
+                n: function () {
+                  {
+                    var am = {
+                      done: true
+                    };
+                    return ah >= ad.length ? am : {
+                      done: false,
+                      value: ad[ah++]
+                    };
+                  }
+                },
+                e: function (am) {
+                  {
+                    throw am;
+                  }
+                },
+                f: ai
+              };
+            }
+          }
+          throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+        }
+      }
+      var aj;
+      var ak = true;
+      var al = false;
+      return {
+        s: function () {
+          {
+            ag = ag.call(ad);
+          }
+        },
+        n: function () {
+          {
+            var ao = ag.next();
+            ak = ao.done;
+            return ao;
+          }
+        },
+        e: function (ao) {
+          al = true;
+          aj = ao;
+        },
+        f: function () {
+          {
+            try {
+              {
+                ak || null == ag.return || ag.return();
+              }
+            } finally {
+              {
+                if (al) {
+                  throw aj;
+                }
+              }
+            }
+          }
+        }
+      };
+    }
+  }
+  function B(ad, ae) {
+    {
+      (null == ae || ae > ad.length) && (ae = ad.length);
+      for (var ag = 0, ah = Array(ae); ag < ae; ag++) {
+        ah[ag] = ad[ag];
+      }
+      return ah;
+    }
+  }
+  function D() {
+    "use strict";
+
+    var ad = {
+      TvNEZ: function (aK, aL) {
+        return aK(aL);
+      },
+      gmqbc: function (aK, aL) {
+        return aK !== aL;
+      },
+      LrfSF: "Vneyn",
+      ySujA: function (aK, aL, aM, aN) {
+        return aK(aL, aM, aN);
+      },
+      UiHyc: "next",
+      iwJRn: "return",
+      FKhAu: function (aK, aL) {
+        return aK === aL;
+      },
+      TjLWY: "throw",
+      vdgMC: "break",
+      rMeie: "continue",
+      UJrFb: function (aK, aL) {
+        return aK === aL;
+      },
+      Gptpv: "normal",
+      hBSQr: function (aK, aL) {
+        return aK === aL;
+      },
+      YSFvR: function (aK, aL, aM, aN, aO) {
+        return aK(aL, aM, aN, aO);
+      },
+      bsvzZ: function (aK, aL) {
+        return aK == aL;
+      },
+      xneym: "function",
+      nXPSH: "ibERg",
+      CQpfG: "Generator is already running",
+      hzKpK: "ocQWN",
+      NcdgM: "mGfGC",
+      zmbhM: "zlqiq",
+      OvJpC: "zEhPQ",
+      RMGMU: function (aK, aL) {
+        return aK !== aL;
+      },
+      krdaB: "UjKNu",
+      wekIq: function (aK, aL, aM) {
+        return aK(aL, aM);
+      },
+      WLUEg: function (aK, aL) {
+        return aK === aL;
+      },
+      IvhfV: "pTUbG",
+      Yiyno: "IUXxG",
+      mRkNl: "leKNE",
+      EqjUU: "rEPwA",
+      Udmbz: function (aK, aL, aM, aN) {
+        return aK(aL, aM, aN);
+      },
+      uTWIW: function (aK, aL) {
+        return aK === aL;
+      },
+      wJrlV: "NLhAU",
+      MVkaY: "DZaAv",
+      jnMwd: function (aK) {
+        return aK();
+      },
+      hKhva: "end",
+      Tywbc: function (aK, aL) {
+        return aK !== aL;
+      },
+      mMcXH: "TSMfo",
+      QVGlo: function (aK, aL) {
+        return aK in aL;
+      },
+      SAvMO: function (aK, aL) {
+        return aK < aL;
+      },
+      hfTxw: function (aK, aL) {
+        return aK instanceof aL;
+      },
+      bgpWr: function (aK, aL, aM, aN) {
+        return aK(aL, aM, aN);
+      },
+      GgOEI: function (aK, aL, aM, aN) {
+        return aK(aL, aM, aN);
+      },
+      KmXVA: function (aK, aL) {
+        return aK !== aL;
+      },
+      VTRSl: "PILDT",
+      qOwgs: "ZfZPX",
+      LiMQx: "aKUMl",
+      nFABL: "[object Generator]",
+      jZqxr: function (aK, aL) {
+        return aK !== aL;
+      },
+      suamo: "skFvp",
+      OqcCz: function (aK, aL) {
+        return aK(aL);
+      },
+      XCOWV: function (aK, aL) {
+        return aK !== aL;
+      },
+      FcdYv: "AEhJK",
+      rTpRk: function (aK, aL) {
+        return aK === aL;
+      },
+      gGYvZ: "iterator result is not an object",
+      kPhHN: function (aK, aL) {
+        return aK === aL;
+      },
+      wTVQT: function (aK, aL, aM) {
+        return aK(aL, aM);
+      },
+      jOcTc: function (aK, aL) {
+        return aK + aL;
+      },
+      OzYGF: function (aK, aL) {
+        return aK === aL;
+      },
+      BNpYy: "fJbyb",
+      AEKMr: function (aK, aL) {
+        return aK - aL;
+      },
+      XvFuW: function (aK, aL) {
+        return aK !== aL;
+      },
+      JiURt: "RJkVt",
+      EITmN: "root",
+      LWqNZ: function (aK, aL) {
+        return aK(aL);
+      },
+      TqnkC: function (aK, aL) {
+        return aK <= aL;
+      },
+      TspvS: function (aK, aL) {
+        return aK !== aL;
+      },
+      GOCRs: "ZMaBl",
+      sQuPw: "catchLoc",
+      uHrPl: "finallyLoc",
+      VRnxL: function (aK, aL) {
+        return aK && aL;
+      },
+      enuqC: "mbRGS",
+      BPXLu: function (aK, aL) {
+        return aK < aL;
+      },
+      hnfAr: function (aK, aL) {
+        return aK < aL;
+      },
+      VocdB: function (aK, aL) {
+        return aK === aL;
+      },
+      QAULP: "pGZTv",
+      AAtQl: "RIwzd",
+      IspoC: function (aK, aL) {
+        return aK < aL;
+      },
+      RxqIP: "LPUGP",
+      mopHU: function (aK, aL) {
+        return aK(aL);
+      },
+      yqVzV: function (aK, aL) {
+        return aK(aL);
+      },
+      OgVOz: function (aK, aL) {
+        return aK(aL);
+      },
+      dDRcj: "lJDYW",
+      Osmne: function (aK, aL) {
+        return aK >= aL;
+      },
+      bSJBG: function (aK, aL) {
+        return aK !== aL;
+      },
+      xcgvD: "yrCAn",
+      hfCNZ: "gosVe",
+      haBuE: function (aK, aL) {
+        return aK < aL;
+      },
+      RTKyX: "LjTna",
+      TDpgV: function (aK, aL) {
+        return aK === aL;
+      },
+      HOtjS: function (aK, aL) {
+        return aK === aL;
+      },
+      DwilK: function (aK, aL) {
+        return aK <= aL;
+      },
+      Jvutl: function (aK, aL, aM, aN, aO, aP, aQ, aR) {
+        return aK(aL, aM, aN, aO, aP, aQ, aR);
+      },
+      nWHNi: function (aK, aL) {
+        return aK - aL;
+      },
+      RSYfm: "Eqntp",
+      QlKeE: "qjkgD",
+      hweEC: "wsYAf",
+      nYKPO: "uqYnz",
+      ZxPeJ: function (aK, aL) {
+        return aK(aL);
+      }
+    };
+    D = function () {
+      {
+        return af;
+      }
+    };
+    var ae;
+    var af = {
+      wrap: ao,
+      isGeneratorFunction: function (aN) {
+        {
+          var aO = "function" == typeof aN && aN.constructor;
+          return !!aO && (aO === aw || "GeneratorFunction" === (aO.displayName || aO.name));
+        }
+      },
+      mark: function (aN) {
+        {
+          Object.setPrototypeOf ? Object.setPrototypeOf(aN, ax) : (aN.__proto__ = ax, an(aN, am, "GeneratorFunction"));
+          aN.prototype = Object.create(aB);
+          return aN;
+        }
+      }
+    };
+    var ag = Object.prototype;
+    var ah = ag.hasOwnProperty;
+    var ai = Object.defineProperty || function (aK, aL, aM) {
+      {
+        aK[aL] = aM.value;
+      }
+    };
+    var aj = "function" == typeof Symbol ? Symbol : {};
+    var ak = aj.iterator || "@@iterator";
+    var al = aj.asyncIterator || "@@asyncIterator";
+    var am = aj.toStringTag || "@@toStringTag";
+    function an(aK, aL, aM) {
+      {
+        var aO = {
+          value: aM,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        };
+        Object.defineProperty(aK, aL, aO);
+        return aK[aL];
+      }
+    }
+    try {
+      {
+        an({}, "");
+      }
+    } catch (aL) {
+      {
+        an = function (aM, aN, aO) {
+          {
+            return aM[aN] = aO;
+          }
+        };
+      }
+    }
+    function ao(aN, aO, aP, aQ) {
+      {
+        var aR = aO && aO.prototype instanceof av ? aO : av;
+        var aS = Object.create(aR.prototype);
+        var aT = new aI(aQ || []);
+        ai(aS, "_invoke", {
+          value: aE(aN, aP, aT)
+        });
+        return aS;
+      }
+    }
+    function ap(aN, aO, aP) {
+      {
+        try {
+          return {
+            type: "normal",
+            arg: aN.call(aO, aP)
+          };
+        } catch (aU) {
+          {
+            var aR = {
+              type: "throw",
+              arg: aU
+            };
+            return aR;
+          }
+        }
+      }
+    }
+    var aq = "suspendedStart";
+    var ar = "suspendedYield";
+    var as = "executing";
+    var at = "completed";
+    var au = {};
+    function av() {}
+    function aw() {}
+    function ax() {}
+    var ay = {};
+    an(ay, ak, function () {
+      {
+        return this;
+      }
+    });
+    var az = Object.getPrototypeOf;
+    var aA = az && az(az(aJ([])));
+    aA && aA !== ag && ah.call(aA, ak) && (ay = aA);
+    ax.prototype = av.prototype = Object.create(ay);
+    var aB = ax.prototype;
+    function aC(aN) {
+      {
+        ["next", "throw", "return"].forEach(function (aQ) {
+          {
+            an(aN, aQ, function (aS) {
+              {
+                return this._invoke(aQ, aS);
+              }
+            });
+          }
+        });
+      }
+    }
+    function aD(aN, aO) {
+      {
+        function aS(aT, aU, aV, aW) {
+          {
+            var aY = ap(aN[aT], aN, aU);
+            if ("throw" !== aY.type) {
+              {
+                var aZ = aY.arg;
+                var b0 = aZ.value;
+                return b0 && "object" == q(b0) && ah.call(b0, "__await") ? aO.resolve(b0.__await).then(function (b2) {
+                  {
+                    aS("next", b2, aV, aW);
+                  }
+                }, function (b2) {
+                  {
+                    aS("throw", b2, aV, aW);
+                  }
+                }) : aO.resolve(b0).then(function (b2) {
+                  {
+                    aZ.value = b2;
+                    aV(aZ);
+                  }
+                }, function (b2) {
+                  {
+                    return aS("throw", b2, aV, aW);
+                  }
+                });
+              }
+            }
+            aW(aY.arg);
+          }
+        }
+        var aQ;
+        ai(this, "_invoke", {
+          value: function (aT, aU) {
+            {
+              function aW() {
+                {
+                  return new aO(function (aX, aY) {
+                    {
+                      aS(aT, aU, aX, aY);
+                    }
+                  });
+                }
+              }
+              return aQ = aQ ? aQ.then(aW, aW) : aW();
+            }
+          }
+        });
+      }
+    }
+    function aE(aN, aO, aP) {
+      var aR = aq;
+      return function (aS, aT) {
+        {
+          if (aR === as) {
+            throw Error("Generator is already running");
+          }
+          if (aR === at) {
+            {
+              if ("throw" === aS) {
+                throw aT;
+              }
+              var aV = {
+                value: ae,
+                done: true
+              };
+              return aV;
+            }
+          }
+          for (aP.method = aS, aP.arg = aT;;) {
+            {
+              var aW = aP.delegate;
+              if (aW) {
+                {
+                  var aX = aF(aW, aP);
+                  if (aX) {
+                    {
+                      if (aX === au) {
+                        continue;
+                      }
+                      return aX;
+                    }
+                  }
+                }
+              }
+              if ("next" === aP.method) {
+                aP.sent = aP._sent = aP.arg;
+              } else {
+                if ("throw" === aP.method) {
+                  {
+                    if (aR === aq) {
+                      throw aR = at, aP.arg;
+                    }
+                    aP.dispatchException(aP.arg);
+                  }
+                } else {
+                  "return" === aP.method && aP.abrupt("return", aP.arg);
+                }
+              }
+              aR = as;
+              var aY = ap(aN, aO, aP);
+              if ("normal" === aY.type) {
+                {
+                  if (aR = aP.done ? at : ar, aY.arg === au) {
+                    continue;
+                  }
+                  var aZ = {
+                    value: aY.arg,
+                    done: aP.done
+                  };
+                  return aZ;
+                }
+              }
+              "throw" === aY.type && (aR = at, aP.method = "throw", aP.arg = aY.arg);
+            }
+          }
+        }
+      };
+    }
+    function aF(aN, aO) {
+      {
+        var aS = aO.method;
+        var aT = aN.iterator[aS];
+        if (aT === ae) {
+          aO.delegate = null;
+          "throw" === aS && aN.iterator.return && (aO.method = "return", aO.arg = ae, aF(aN, aO), "throw" === aO.method) || "return" !== aS && (aO.method = "throw", aO.arg = new TypeError("The iterator does not provide a '" + aS + "' method"));
+          return au;
+        }
+        var aU = ap(aT, aN.iterator, aO.arg);
+        if ("throw" === aU.type) {
+          aO.method = "throw";
+          aO.arg = aU.arg;
+          aO.delegate = null;
+          return au;
+        }
+        var aV = aU.arg;
+        return aV ? aV.done ? (aO[aN.resultName] = aV.value, aO.next = aN.nextLoc, "return" !== aO.method && (aO.method = "next", aO.arg = ae), aO.delegate = null, au) : aV : (aO.method = "throw", aO.arg = new TypeError("iterator result is not an object"), aO.delegate = null, au);
+      }
+    }
+    function aG(aN) {
+      {
+        var aQ = {
+          tryLoc: aN[0]
+        };
+        1 in aN && (aQ.catchLoc = aN[1]);
+        2 in aN && (aQ.finallyLoc = aN[2], aQ.afterLoc = aN[3]);
+        this.tryEntries.push(aQ);
+      }
+    }
+    function aH(aN) {
+      {
+        var aO = aN.completion || {};
+        aO.type = "normal";
+        delete aO.arg;
+        aN.completion = aO;
+      }
+    }
+    function aI(aN) {
+      {
+        var aO = {
+          tryLoc: "root"
+        };
+        this.tryEntries = [aO];
+        aN.forEach(aG, this);
+        this.reset(true);
+      }
+    }
+    function aJ(aN) {
+      {
+        if (aN || "" === aN) {
+          {
+            var aP = aN[ak];
+            if (aP) {
+              return aP.call(aN);
+            }
+            if ("function" == typeof aN.next) {
+              return aN;
+            }
+            if (!isNaN(aN.length)) {
+              {
+                var aQ = -1;
+                var aR = function aT() {
+                  {
+                    for (; ++aQ < aN.length;) {
+                      if (ah.call(aN, aQ)) {
+                        aT.value = aN[aQ];
+                        aT.done = false;
+                        return aT;
+                      }
+                    }
+                    aT.value = ae;
+                    aT.done = true;
+                    return aT;
+                  }
+                };
+                return aR.next = aR;
+              }
+            }
+          }
+        }
+        throw new TypeError(q(aN) + " is not iterable");
+      }
+    }
+    aw.prototype = ax;
+    ai(aB, "constructor", {
+      value: ax,
+      configurable: true
+    });
+    ai(ax, "constructor", {
+      value: aw,
+      configurable: true
+    });
+    aw.displayName = an(ax, am, "GeneratorFunction");
+    af.awrap = function (aN) {
+      {
+        var aP = {
+          __await: aN
+        };
+        return aP;
+      }
+    };
+    aC(aD.prototype);
+    an(aD.prototype, al, function () {
+      return this;
+    });
+    af.AsyncIterator = aD;
+    af.async = function (aN, aO, aP, aQ, aR) {
+      {
+        undefined === aR && (aR = Promise);
+        var aT = new aD(ao(aN, aO, aP, aQ), aR);
+        return af.isGeneratorFunction(aO) ? aT : aT.next().then(function (aV) {
+          {
+            return aV.done ? aV.value : aT.next();
+          }
+        });
+      }
+    };
+    aC(aB);
+    an(aB, am, "Generator");
+    an(aB, ak, function () {
+      {
+        return this;
+      }
+    });
+    an(aB, "toString", function () {
+      return "[object Generator]";
+    });
+    af.keys = function (aN) {
+      {
+        var aP = Object(aN);
+        var aQ = [];
+        for (var aR in aP) aQ.push(aR);
+        aQ.reverse();
+        return function aT() {
+          {
+            for (; aQ.length;) {
+              {
+                var aU = aQ.pop();
+                if (aU in aP) {
+                  aT.value = aU;
+                  aT.done = false;
+                  return aT;
+                }
+              }
+            }
+            aT.done = true;
+            return aT;
+          }
+        };
+      }
+    };
+    af.values = aJ;
+    aI.prototype = {
+      constructor: aI,
+      reset: function (aN) {
+        {
+          if (this.prev = 0, this.next = 0, this.sent = this._sent = ae, this.done = false, this.delegate = null, this.method = "next", this.arg = ae, this.tryEntries.forEach(aH), !aN) {
+            for (var aO in this) "t" === aO.charAt(0) && ah.call(this, aO) && !isNaN(+aO.slice(1)) && (this[aO] = ae);
+          }
+        }
+      },
+      stop: function () {
+        this.done = true;
+        var aP = this.tryEntries[0].completion;
+        if ("throw" === aP.type) {
+          throw aP.arg;
+        }
+        return this.rval;
+      },
+      dispatchException: function (aN) {
+        {
+          if (this.done) {
+            throw aN;
+          }
+          var aO = this;
+          function aV(aW, aX) {
+            {
+              aR.type = "throw";
+              aR.arg = aN;
+              aO.next = aW;
+              aX && (aO.method = "next", aO.arg = ae);
+              return !!aX;
+            }
+          }
+          for (var aP = this.tryEntries.length - 1; aP >= 0; --aP) {
+            {
+              var aQ = this.tryEntries[aP];
+              var aR = aQ.completion;
+              if ("root" === aQ.tryLoc) {
+                return aV("end");
+              }
+              if (aQ.tryLoc <= this.prev) {
+                {
+                  var aS = ah.call(aQ, "catchLoc");
+                  var aT = ah.call(aQ, "finallyLoc");
+                  if (aS && aT) {
+                    {
+                      if (this.prev < aQ.catchLoc) {
+                        return aV(aQ.catchLoc, true);
+                      }
+                      if (this.prev < aQ.finallyLoc) {
+                        return aV(aQ.finallyLoc);
+                      }
+                    }
+                  } else {
+                    if (aS) {
+                      {
+                        if (this.prev < aQ.catchLoc) {
+                          return aV(aQ.catchLoc, true);
+                        }
+                      }
+                    } else {
+                      {
+                        if (!aT) {
+                          throw Error("try statement without catch or finally");
+                        }
+                        if (this.prev < aQ.finallyLoc) {
+                          return aV(aQ.finallyLoc);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      abrupt: function (aN, aO) {
+        {
+          for (var aP = this.tryEntries.length - 1; aP >= 0; --aP) {
+            {
+              var aQ = this.tryEntries[aP];
+              if (aQ.tryLoc <= this.prev && ah.call(aQ, "finallyLoc") && this.prev < aQ.finallyLoc) {
+                {
+                  var aR = aQ;
+                  break;
+                }
+              }
+            }
+          }
+          aR && ("break" === aN || "continue" === aN) && aR.tryLoc <= aO && aO <= aR.finallyLoc && (aR = null);
+          var aS = aR ? aR.completion : {};
+          aS.type = aN;
+          aS.arg = aO;
+          return aR ? (this.method = "next", this.next = aR.finallyLoc, au) : this.complete(aS);
+        }
+      },
+      complete: function (aN, aO) {
+        {
+          if ("throw" === aN.type) {
+            throw aN.arg;
+          }
+          "break" === aN.type || "continue" === aN.type ? this.next = aN.arg : "return" === aN.type ? (this.rval = this.arg = aN.arg, this.method = "return", this.next = "end") : "normal" === aN.type && aO && (this.next = aO);
+          return au;
+        }
+      },
+      finish: function (aN) {
+        {
+          for (var aP = this.tryEntries.length - 1; aP >= 0; --aP) {
+            {
+              var aQ = this.tryEntries[aP];
+              if (aQ.finallyLoc === aN) {
+                this.complete(aQ.completion, aQ.afterLoc);
+                aH(aQ);
+                return au;
+              }
+            }
+          }
+        }
+      },
+      catch: function (aN) {
+        {
+          for (var aO = this.tryEntries.length - 1; aO >= 0; --aO) {
+            {
+              var aP = this.tryEntries[aO];
+              if (aP.tryLoc === aN) {
+                var aQ = aP.completion;
+                if ("throw" === aQ.type) {
+                  {
+                    var aR = aQ.arg;
+                    aH(aP);
+                  }
+                }
+                return aR;
+              }
+            }
+          }
+          throw Error("illegal catch attempt");
+        }
+      },
+      delegateYield: function (aN, aO, aP) {
+        {
+          this.delegate = {
+            iterator: aJ(aN),
+            resultName: aO,
+            nextLoc: aP
+          };
+          "next" === this.method && (this.arg = ae);
+          return au;
+        }
+      }
+    };
+    return af;
+  }
+  function F(ad, ae, af, ag, ah, ai, aj) {
+    {
+      try {
+        {
+          var ak = ad[ai](aj);
+          var al = ak.value;
+        }
+      } catch (ao) {
+        {
+          return void af(ao);
+        }
+      }
+      ak.done ? ae(al) : Promise.resolve(al).then(ag, ah);
+    }
+  }
+  function G(ad) {
+    return function () {
+      var ag = this;
+      var ah = arguments;
+      return new Promise(function (ai, aj) {
+        var al = ad.apply(ag, ah);
+        function am(ao) {
+          {
+            F(al, ai, aj, am, an, "next", ao);
+          }
+        }
+        function an(ao) {
+          {
+            F(al, ai, aj, am, an, "throw", ao);
+          }
+        }
+        am(undefined);
+      });
+    };
+  }
+  var H = ($.isNode() ? process.env.FTEJ : $.getdata("FTEJ")) || "";
+  var J = "";
+  var K = "";
+  var M = "";
+  var Q = "";
+  var R = "";
+  function T() {
+    return U.apply(this, arguments);
+  }
+  function U() {
+    U = G(D().mark(function ae() {
+      var ag;
+      var ah;
+      var ai;
+      var aj;
+      var ak;
+      var al;
+      var am;
+      var an;
+      var ao;
+      var ap;
+      var aq;
+      var ar;
+      var as;
+      var at;
+      var au;
+      var av;
+      var aw;
+      var ax;
+      var ay;
+      var az;
+      var aA;
+      var aB;
+      var aC;
+      var aD;
+      var aE;
+      var aF;
+      var aG;
+      var aH;
+      var aI;
+      return D().wrap(function (aJ) {
+        for (;;) {
+          switch (aJ.prev = aJ.next) {
+            case 0:
+              if (console.log("作者：@xzxxn777\n频道：https://t.me/xzxxn777\n群组：https://t.me/xzxxn7777\n自用机场推荐：https://xn--diqv0fut7b.com\n"), H) {
+                {
+                  aJ.next = 6;
+                  break;
+                }
+              }
+              console.log("先去boxjs填写账号密码");
+              aJ.next = 5;
+              return ab("先去boxjs填写账号密码");
+            case 5:
+              return aJ.abrupt("return");
+            case 6:
+              ag = H.split(" ");
+              ah = z(ag);
+              aJ.prev = 8;
+              ah.s();
+            case 10:
+              if ((ai = ah.n()).done) {
+                {
+                  aJ.next = 148;
+                  break;
+                }
+              }
+              var aL = {
+                deviceType: 1
+              };
+              aj = ai.value;
+              aJ.prev = 12;
+              J = aj.split("&")[0];
+              K = aj.split("&")[1];
+              console.log("用户：".concat(J, "开始任务"));
+              console.log("获取皮卡生活safeKey");
+              aJ.next = 19;
+              return X("/ehomes-new/pkHome/version/getVersion", aL);
+            case 19:
+              if (am = aJ.sent, 200 != am.code) {
+                {
+                  aJ.next = 40;
+                  break;
+                }
+              }
+              Q = am.data.safeKey;
+              console.log(Q);
+              console.log("皮卡生活登录");
+              aJ.next = 26;
+              return X("/ehomes-new/pkHome/api/user/getLoginMember2nd", {
+                memberId: "",
+                memberID: "",
+                mobile: "",
+                token: "7fe186bb15ff4426ae84f300f05d9c8d",
+                vin: "",
+                safeEnc: Date.now() - Q,
+                name: J,
+                password: K,
+                position: "",
+                deviceId: "",
+                deviceBrand: "",
+                brandName: "",
+                deviceType: "0",
+                versionCode: "21",
+                versionName: "V1.1.16"
+              });
+            case 26:
+              if (an = aJ.sent, console.log(null == an ? undefined : an.msg), 200 != (null == an ? undefined : an.code)) {
+                aJ.next = 38;
+                break;
+              }
+              uid = an.data.uid;
+              memberComplexCode = an.data.memberComplexCode;
+              memberId = an.data.user.memberNo;
+              M = an.data.token;
+              console.log("开始签到");
+              aJ.next = 36;
+              return a3("/ehomes-new/pkHome/api/bonus/signActivity2nd", {
+                memberId: memberComplexCode,
+                memberID: memberId,
+                mobile: J,
+                token: "7fe186bb15ff4426ae84f300f05d9c8d",
+                vin: "",
+                safeEnc: Date.now() - Q
+              });
+            case 36:
+              ao = aJ.sent;
+              ao.data.integral ? console.log("签到成功，获得".concat(ao.data.integral, "积分")) : console.log(ao.data.msg);
+            case 38:
+              aJ.next = 41;
+              break;
+            case 40:
+              console.log(am.msg);
+            case 41:
+              console.log("————————————");
+              console.log("获取福田e家safeKey");
+              aJ.next = 45;
+              return Z("/est/getVersion.action", a8(JSON.stringify({
+                limit: {
+                  auth: "null",
+                  uid: "",
+                  userType: "61"
+                },
+                param: {
+                  deviceType: "1",
+                  version: "7.5.1",
+                  versionCode: "345"
+                }
+              })));
+            case 45:
+              if (am = aJ.sent, 0 == am.code) {
+                {
+                  aJ.next = 49;
+                  break;
+                }
+              }
+              console.log(am.msg);
+              return aJ.abrupt("continue", 146);
+            case 49:
+              Q = JSON.parse(am.data).safeKey;
+              console.log(Q);
+              console.log("福田e家登录");
+              aJ.next = 54;
+              return V("/ehomes-new/homeManager/getLoginMember", {
+                password: K,
+                version_name: "7.4.9",
+                version_auth: "svHgvcBi/9f/MyYFLY3aFQ==",
+                device_id: "",
+                device_model: "",
+                ip: "",
+                name: J,
+                version_code: "342",
+                deviceSystemVersion: "12",
+                device_type: "0"
+              });
+            case 54:
+              if (ap = aJ.sent, 200 == ap.code) {
+                {
+                  aJ.next = 58;
+                  break;
+                }
+              }
+              console.log(ap.msg);
+              return aJ.abrupt("continue", 146);
+            case 58:
+              console.log("登陆成功");
+              uid = ap.data.uid;
+              memberComplexCode = ap.data.memberComplexCode;
+              memberId = ap.data.memberID;
+              aJ.next = 64;
+              return a1("/ehomes-new/homeManager/api/share/corsToActicity", {
+                memberId: memberId,
+                userId: uid,
+                userType: "61",
+                uid: uid,
+                mobile: J,
+                tel: J,
+                phone: J,
+                brandName: "",
+                seriesName: "",
+                token: "ebf76685e48d4e14a9de6fccc76483e3",
+                safeEnc: Date.now() - Q,
+                businessId: 1,
+                activityNumber: "open",
+                requestType: "0",
+                type: "5",
+                userNumber: memberId,
+                channel: "1",
+                name: "",
+                remark: "打开APP"
+              });
+            case 64:
+              if (aq = aJ.sent, 200 == aq.code ? console.log("打开app成功") : console.log("打开app：".concat(aq.msg)), console.log("开始签到"), "未签到" != ap.data.signIn) {
+                {
+                  aJ.next = 74;
+                  break;
+                }
+              }
+              aJ.next = 70;
+              return a1("/ehomes-new/homeManager/api/bonus/signActivity2nd", {
+                memberId: memberComplexCode,
+                userId: uid,
+                userType: "61",
+                uid: uid,
+                mobile: J,
+                tel: J,
+                phone: J,
+                brandName: "",
+                seriesName: "",
+                token: "ebf76685e48d4e14a9de6fccc76483e3",
+                safeEnc: Date.now() - Q,
+                businessId: 1
+              });
+            case 70:
+              as = aJ.sent;
+              console.log("签到成功，获得".concat(null == as || null === (ar = as.data) || undefined === ar ? undefined : ar.integral, "积分"));
+              aJ.next = 75;
+              break;
+            case 74:
+              console.log(null == ap || null === (at = ap.data) || undefined === at ? undefined : at.signIn);
+            case 75:
+              console.log("————————————");
+              console.log("开始任务");
+              aJ.next = 79;
+              return a1("/ehomes-new/homeManager/api/Member/getTaskList", {
+                memberId: memberId,
+                userId: uid,
+                userType: "61",
+                uid: uid,
+                mobile: J,
+                tel: J,
+                phone: J,
+                brandName: "",
+                seriesName: "",
+                token: "ebf76685e48d4e14a9de6fccc76483e3",
+                safeEnc: Date.now() - Q,
+                businessId: 1
+              });
+            case 79:
+              au = aJ.sent;
+              av = z(au.data);
+              aJ.prev = 81;
+              av.s();
+            case 83:
+              if ((aw = av.n()).done) {
+                {
+                  aJ.next = 126;
+                  break;
+                }
+              }
+              if (ax = aw.value, console.log("任务：".concat(ax.ruleName)), "1" != ax.isComplete) {
+                {
+                  aJ.next = 90;
+                  break;
+                }
+              }
+              console.log("任务已完成");
+              aJ.next = 124;
+              break;
+            case 90:
+              if ("33" != ax.ruleId) {
+                aJ.next = 95;
+                break;
+              }
+              aJ.next = 93;
+              return V("/ehomes-new/homeManager/api/bonus/addIntegralForShare", {
+                safeEnc: Date.now() - Q,
+                activity: "",
+                tel: J,
+                id: ax.ruleId,
+                source: "APP",
+                memberId: memberComplexCode
+              });
+            case 93:
+              ay = aJ.sent;
+              200 == ay.code ? console.log("分享成功，获得".concat(ay.data.integral, "积分")) : console.log(ay.msg);
+            case 95:
+              if ("130" != ax.ruleId) {
+                aJ.next = 109;
+                break;
+              }
+              aJ.next = 98;
+              return a1("/ehomes-new/ehomesCommunity/api/post/recommendPostList", {
+                memberId: memberId,
+                userId: uid,
+                userType: "61",
+                uid: uid,
+                mobile: J,
+                tel: J,
+                phone: J,
+                brandName: "",
+                seriesName: "",
+                token: "ebf76685e48d4e14a9de6fccc76483e3",
+                safeEnc: Date.now() - Q,
+                businessId: 1,
+                position: "1",
+                pageNumber: "1",
+                pageSize: 9
+              });
+            case 98:
+              az = aJ.sent;
+              aA = Math.floor(Math.random() * az.data.length);
+              aB = az.data[aA].memberId;
+              aJ.next = 103;
+              return a1("/ehomes-new/ehomesCommunity/api/post/follow2nd", {
+                memberId: memberComplexCode,
+                userId: uid,
+                userType: "61",
+                uid: uid,
+                mobile: J,
+                tel: J,
+                phone: J,
+                brandName: "",
+                seriesName: "",
+                token: "ebf76685e48d4e14a9de6fccc76483e3",
+                safeEnc: Date.now() - Q,
+                businessId: 1,
+                behavior: "1",
+                memberIdeds: aB,
+                navyId: "null"
+              });
+            case 103:
+              aC = aJ.sent;
+              200 == aC.code ? console.log("关注成功") : console.log(aC.msg);
+              aJ.next = 107;
+              return a1("/ehomes-new/ehomesCommunity/api/post/follow2nd", {
+                memberId: memberComplexCode,
+                userId: uid,
+                userType: "61",
+                uid: uid,
+                mobile: J,
+                tel: J,
+                phone: J,
+                brandName: "",
+                seriesName: "",
+                token: "ebf76685e48d4e14a9de6fccc76483e3",
+                safeEnc: Date.now() - Q,
+                businessId: 1,
+                behavior: "2",
+                memberIdeds: aB,
+                navyId: "null"
+              });
+            case 107:
+              aC = aJ.sent;
+              200 == aC.code ? console.log("取关成功") : console.log(aC.msg);
+            case 109:
+              if ("125" != ax.ruleId) {
+                aJ.next = 124;
+                break;
+              }
+              aJ.next = 112;
+              return V("/ehomes-new/ehomesCommunity/api/post/topicList", {
+                memberId: memberId,
+                userId: uid,
+                userType: "61",
+                uid: uid,
+                mobile: J,
+                tel: J,
+                phone: J,
+                brandName: "",
+                seriesName: "",
+                token: "ebf76685e48d4e14a9de6fccc76483e3",
+                safeEnc: Date.now() - Q,
+                businessId: 1
+              });
+            case 112:
+              aD = aJ.sent;
+              aE = Math.floor(Math.random() * aD.data.top.length);
+              aF = aD.data.top[aE].topicId;
+              aJ.next = 117;
+              return a5();
+            case 117:
+              aG = aJ.sent;
+              (!aG || aG.length < 10) && (aG = "如果觉得没有朋友，就去找喜欢的人表白，对方会提出和你做朋友的。");
+              console.log("文本：".concat(aG));
+              aJ.next = 122;
+              return a1("/ehomes-new/ehomesCommunity/api/post/addJson2nd", {
+                memberId: memberComplexCode,
+                userId: uid,
+                userType: "61",
+                uid: uid,
+                mobile: J,
+                tel: J,
+                phone: J,
+                brandName: "",
+                seriesName: "",
+                token: "ebf76685e48d4e14a9de6fccc76483e3",
+                safeEnc: Date.now() - Q,
+                businessId: 1,
+                content: aG,
+                postType: 1,
+                topicIdList: [aF],
+                uploadFlag: 3,
+                title: "",
+                urlList: []
+              });
+            case 122:
+              aH = aJ.sent;
+              200 == aH.code ? console.log("发帖成功") : console.log(aH.msg);
+            case 124:
+              aJ.next = 83;
+              break;
+            case 126:
+              aJ.next = 131;
+              break;
+            case 128:
+              aJ.prev = 128;
+              aJ.t0 = aJ.catch(81);
+              av.e(aJ.t0);
+            case 131:
+              aJ.prev = 131;
+              av.f();
+              return aJ.finish(131);
+            case 134:
+              console.log("————————————");
+              console.log("查询积分");
+              aJ.next = 138;
+              return a1("/ehomes-new/homeManager/api/Member/findMemberPointsInfo", {
+                memberId: memberId,
+                userId: uid,
+                userType: "61",
+                uid: uid,
+                mobile: J,
+                tel: J,
+                phone: J,
+                brandName: "",
+                seriesName: "",
+                token: "ebf76685e48d4e14a9de6fccc76483e3",
+                safeEnc: Date.now() - Q,
+                businessId: 1
+              });
+            case 138:
+              aI = aJ.sent;
+              console.log("拥有积分: ".concat(null == aI || null === (ak = aI.data) || undefined === ak ? undefined : ak.pointValue, "\n"));
+              R += "用户：".concat(J, " 拥有积分: ").concat(null == aI || null === (al = aI.data) || undefined === al ? undefined : al.pointValue, "\n");
+              aJ.next = 146;
+              break;
+            case 143:
+              aJ.prev = 143;
+              aJ.t1 = aJ.catch(12);
+              console.log(aJ.t1);
+            case 146:
+              aJ.next = 10;
+              break;
+            case 148:
+              aJ.next = 153;
+              break;
+            case 150:
+              aJ.prev = 150;
+              aJ.t2 = aJ.catch(8);
+              ah.e(aJ.t2);
+            case 153:
+              aJ.prev = 153;
+              ah.f();
+              return aJ.finish(153);
+            case 156:
+              if (!R) {
+                aJ.next = 159;
+                break;
+              }
+              aJ.next = 159;
+              return ab(R);
+            case 159:
+            case "end":
+              return aJ.stop();
+          }
+        }
+      }, ae, null, [[8, 150, 153, 156], [12, 143], [81, 128, 131, 134]]);
+    }));
+    return U.apply(this, arguments);
+  }
+  function V(ad, ae) {
+    return W.apply(this, arguments);
+  }
+  function W() {
+    W = G(D().mark(function ae(af, ag) {
+      return D().wrap(function (aj) {
+        for (;;) {
+          switch (aj.prev = aj.next) {
+            case 0:
+              return aj.abrupt("return", new Promise(function (al) {
+                var am = {
+                  url: "https://czyl.foton.com.cn".concat(af),
+                  headers: {
+                    "content-type": "application/json;charset=utf-8",
+                    Connection: "Keep-Alive",
+                    "user-agent": "okhttp/3.14.9",
+                    "Accept-Encoding": "gzip"
+                  },
+                  body: JSON.stringify(ag)
+                };
+                $.post(am, function () {
+                  var ao = G(D().mark(function ap(aq, ar, as) {
+                    return D().wrap(function (at) {
+                      for (;;) {
+                        switch (at.prev = at.next) {
+                          case 0:
+                            if (at.prev = 0, !aq) {
+                              at.next = 6;
+                              break;
+                            }
+                            console.log("".concat(JSON.stringify(aq)));
+                            console.log("".concat($.name, " API请求失败，请检查网路重试"));
+                            at.next = 9;
+                            break;
+                          case 6:
+                            at.next = 8;
+                            return $.wait(2000);
+                          case 8:
+                            al(JSON.parse(as));
+                          case 9:
+                            at.next = 14;
+                            break;
+                          case 11:
+                            at.prev = 11;
+                            at.t0 = at.catch(0);
+                            $.logErr(at.t0, ar);
+                          case 14:
+                            at.prev = 14;
+                            al();
+                            return at.finish(14);
+                          case 17:
+                          case "end":
+                            return at.stop();
+                        }
+                      }
+                    }, ap, null, [[0, 11, 14, 17]]);
+                  }));
+                  return function (aq, ar, as) {
+                    return ao.apply(this, arguments);
+                  };
+                }());
+              }));
+            case 1:
+            case "end":
+              return aj.stop();
+          }
+        }
+      }, ae);
+    }));
+    return W.apply(this, arguments);
+  }
+  function X(ad, ae) {
+    return Y.apply(this, arguments);
+  }
+  function Y() {
+    Y = G(D().mark(function ae(af, ag) {
+      return D().wrap(function (ai) {
+        for (;;) {
+          switch (ai.prev = ai.next) {
+            case 0:
+              return ai.abrupt("return", new Promise(function (aj) {
+                var al = {
+                  url: "https://czyl.foton.com.cn".concat(af),
+                  headers: {
+                    "content-type": "application/json;charset=utf-8",
+                    channel: "1",
+                    "Accept-Encoding": "gzip"
+                  },
+                  body: JSON.stringify(ag)
+                };
+                $.post(al, function () {
+                  var an = G(D().mark(function ao(ap, aq, ar) {
+                    return D().wrap(function (at) {
+                      for (;;) {
+                        switch (at.prev = at.next) {
+                          case 0:
+                            if (at.prev = 0, !ap) {
+                              at.next = 6;
+                              break;
+                            }
+                            console.log("".concat(JSON.stringify(ap)));
+                            console.log("".concat($.name, " API请求失败，请检查网路重试"));
+                            at.next = 9;
+                            break;
+                          case 6:
+                            at.next = 8;
+                            return $.wait(2000);
+                          case 8:
+                            aj(JSON.parse(ar));
+                          case 9:
+                            at.next = 14;
+                            break;
+                          case 11:
+                            at.prev = 11;
+                            at.t0 = at.catch(0);
+                            $.logErr(at.t0, aq);
+                          case 14:
+                            at.prev = 14;
+                            aj();
+                            return at.finish(14);
+                          case 17:
+                          case "end":
+                            return at.stop();
+                        }
+                      }
+                    }, ao, null, [[0, 11, 14, 17]]);
+                  }));
+                  return function (ap, aq, ar) {
+                    return an.apply(this, arguments);
+                  };
+                }());
+              }));
+            case 1:
+            case "end":
+              return ai.stop();
+          }
+        }
+      }, ae);
+    }));
+    return Y.apply(this, arguments);
+  }
+  function Z(ad, ae) {
+    return a0.apply(this, arguments);
+  }
+  function a0() {
+    a0 = G(D().mark(function ae(af, ag) {
+      return D().wrap(function (ai) {
+        for (;;) {
+          switch (ai.prev = ai.next) {
+            case 0:
+              return ai.abrupt("return", new Promise(function (ak) {
+                var am = {
+                  url: "https://czyl.foton.com.cn".concat(af),
+                  headers: {
+                    encrypt: "yes",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Connection: "Keep-Alive",
+                    "User-Agent": "okhttp/3.14.9",
+                    "Accept-Encoding": "gzip"
+                  },
+                  body: "jsonParame=".concat(encodeURIComponent(ag))
+                };
+                $.post(am, function () {
+                  var ao = G(D().mark(function ap(aq, ar, as) {
+                    return D().wrap(function (at) {
+                      for (;;) {
+                        switch (at.prev = at.next) {
+                          case 0:
+                            if (at.prev = 0, !aq) {
+                              at.next = 6;
+                              break;
+                            }
+                            console.log("".concat(JSON.stringify(aq)));
+                            console.log("".concat($.name, " API请求失败，请检查网路重试"));
+                            at.next = 9;
+                            break;
+                          case 6:
+                            at.next = 8;
+                            return $.wait(2000);
+                          case 8:
+                            ak(JSON.parse(a7(as)));
+                          case 9:
+                            at.next = 14;
+                            break;
+                          case 11:
+                            at.prev = 11;
+                            at.t0 = at.catch(0);
+                            $.logErr(at.t0, ar);
+                          case 14:
+                            at.prev = 14;
+                            ak();
+                            return at.finish(14);
+                          case 17:
+                          case "end":
+                            return at.stop();
+                        }
+                      }
+                    }, ap, null, [[0, 11, 14, 17]]);
+                  }));
+                  return function (aq, ar, as) {
+                    return ao.apply(this, arguments);
+                  };
+                }());
+              }));
+            case 1:
+            case "end":
+              return ai.stop();
+          }
+        }
+      }, ae);
+    }));
+    return a0.apply(this, arguments);
+  }
+  function a1(ad, ae) {
+    return a2.apply(this, arguments);
+  }
+  function a2() {
+    a2 = G(D().mark(function ae(af, ag) {
+      return D().wrap(function (aj) {
+        for (;;) {
+          switch (aj.prev = aj.next) {
+            case 0:
+              return aj.abrupt("return", new Promise(function (al) {
+                var am = {
+                  url: "https://czyl.foton.com.cn".concat(af),
+                  headers: {
+                    "content-type": "application/json;charset=utf-8",
+                    Connection: "Keep-Alive",
+                    token: "",
+                    "app-key": "7918d2d1a92a02cbc577adb8d570601e72d3b640",
+                    "app-token": "58891364f56afa1b6b7dae3e4bbbdfbfde9ef489",
+                    "user-agent": "web",
+                    "Accept-Encoding": "gzip"
+                  },
+                  body: JSON.stringify(ag)
+                };
+                $.post(am, function () {
+                  var ao = G(D().mark(function ap(aq, ar, as) {
+                    return D().wrap(function (at) {
+                      for (;;) {
+                        switch (at.prev = at.next) {
+                          case 0:
+                            if (at.prev = 0, !aq) {
+                              at.next = 6;
+                              break;
+                            }
+                            console.log("".concat(JSON.stringify(aq)));
+                            console.log("".concat($.name, " API请求失败，请检查网路重试"));
+                            at.next = 9;
+                            break;
+                          case 6:
+                            at.next = 8;
+                            return $.wait(2000);
+                          case 8:
+                            al(JSON.parse(as));
+                          case 9:
+                            at.next = 14;
+                            break;
+                          case 11:
+                            at.prev = 11;
+                            at.t0 = at.catch(0);
+                            $.logErr(at.t0, ar);
+                          case 14:
+                            at.prev = 14;
+                            al();
+                            return at.finish(14);
+                          case 17:
+                          case "end":
+                            return at.stop();
+                        }
+                      }
+                    }, ap, null, [[0, 11, 14, 17]]);
+                  }));
+                  return function (aq, ar, as) {
+                    return ao.apply(this, arguments);
+                  };
+                }());
+              }));
+            case 1:
+            case "end":
+              return aj.stop();
+          }
+        }
+      }, ae);
+    }));
+    return a2.apply(this, arguments);
+  }
+  function a3(ad, ae) {
+    return a4.apply(this, arguments);
+  }
+  function a4() {
+    a4 = G(D().mark(function ae(af, ag) {
+      return D().wrap(function (ai) {
+        for (;;) {
+          switch (ai.prev = ai.next) {
+            case 0:
+              return ai.abrupt("return", new Promise(function (ak) {
+                var am = {
+                  url: "https://czyl.foton.com.cn".concat(af),
+                  headers: {
+                    "content-type": "application/json;charset=utf-8",
+                    channel: "1",
+                    token: M,
+                    "Accept-Encoding": "gzip"
+                  },
+                  body: JSON.stringify(ag)
+                };
+                $.post(am, function () {
+                  var an = G(D().mark(function ao(ap, aq, ar) {
+                    return D().wrap(function (at) {
+                      for (;;) {
+                        switch (at.prev = at.next) {
+                          case 0:
+                            if (at.prev = 0, !ap) {
+                              at.next = 6;
+                              break;
+                            }
+                            console.log("".concat(JSON.stringify(ap)));
+                            console.log("".concat($.name, " API请求失败，请检查网路重试"));
+                            at.next = 9;
+                            break;
+                          case 6:
+                            at.next = 8;
+                            return $.wait(2000);
+                          case 8:
+                            ak(JSON.parse(ar));
+                          case 9:
+                            at.next = 14;
+                            break;
+                          case 11:
+                            at.prev = 11;
+                            at.t0 = at.catch(0);
+                            $.logErr(at.t0, aq);
+                          case 14:
+                            at.prev = 14;
+                            ak();
+                            return at.finish(14);
+                          case 17:
+                          case "end":
+                            return at.stop();
+                        }
+                      }
+                    }, ao, null, [[0, 11, 14, 17]]);
+                  }));
+                  return function (ap, aq, ar) {
+                    return an.apply(this, arguments);
+                  };
+                }());
+              }));
+            case 1:
+            case "end":
+              return ai.stop();
+          }
+        }
+      }, ae);
+    }));
+    return a4.apply(this, arguments);
+  }
+  function a5() {
+    return a6.apply(this, arguments);
+  }
+  function a6() {
+    a6 = G(D().mark(function ad() {
+      return D().wrap(function (af) {
+        for (;;) {
+          switch (af.prev = af.next) {
+            case 0:
+              return af.abrupt("return", new Promise(function (ah) {
+                var ai = {
+                  url: "https://cy.91yu.cn/yz/juhe.php?msg=爱情语录",
+                  headers: {}
+                };
+                $.get(ai, function () {
+                  var ak = G(D().mark(function al(am, an, ao) {
+                    return D().wrap(function (ap) {
+                      for (;;) {
+                        switch (ap.prev = ap.next) {
+                          case 0:
+                            if (ap.prev = 0, !am) {
+                              ap.next = 6;
+                              break;
+                            }
+                            console.log("".concat(JSON.stringify(am)));
+                            console.log("".concat($.name, " API请求失败，请检查网路重试"));
+                            ap.next = 9;
+                            break;
+                          case 6:
+                            ap.next = 8;
+                            return $.wait(2000);
+                          case 8:
+                            ah(ao);
+                          case 9:
+                            ap.next = 14;
+                            break;
+                          case 11:
+                            ap.prev = 11;
+                            ap.t0 = ap.catch(0);
+                            $.logErr(ap.t0, an);
+                          case 14:
+                            ap.prev = 14;
+                            ah();
+                            return ap.finish(14);
+                          case 17:
+                          case "end":
+                            return ap.stop();
+                        }
+                      }
+                    }, al, null, [[0, 11, 14, 17]]);
+                  }));
+                  return function (am, an, ao) {
+                    return ak.apply(this, arguments);
+                  };
+                }());
+              }));
+            case 1:
+            case "end":
+              return af.stop();
+          }
+        }
+      }, ad);
+    }));
+    return a6.apply(this, arguments);
+  }
+  function a7(ad) {
+    var ae = Buffer.from("Zm9udG9uZS10cmFuc0BseDEwMCQjMzY1", "base64");
+    var af = Buffer.from("MjAxNjEyMDE=", "base64");
+    var ag = crypto.createDecipheriv("des-ede3-cbc", ae, af);
+    ag.setAutoPadding(true);
+    var ah = Buffer.from(ad, "base64");
+    var ai = ag.update(ah, undefined, "utf8");
+    ai += ag.final("utf8");
+    return ai;
+  }
+  function a8(ad) {
+    var ae = Buffer.from("Zm9udG9uZS10cmFuc0BseDEwMCQjMzY1", "base64");
+    var af = Buffer.from("MjAxNjEyMDE=", "base64");
+    var ag = crypto.createCipheriv("des-ede3-cbc", ae, af);
+    ag.setAutoPadding(true);
+    var ah = ag.update(ad, "utf8", "base64");
+    ah += ag.final("base64");
+    return ah;
+  }
+  function a9() {
+    return aa.apply(this, arguments);
+  }
+  function aa() {
+    aa = G(D().mark(function ae() {
+      return D().wrap(function (ah) {
+        for (;;) {
+          switch (ah.prev = ah.next) {
+            case 0:
+              return ah.abrupt("return", new Promise(function (aj) {
+                var ak = {
+                  url: "https://fastly.jsdelivr.net/gh/xzxxn777/Surge@main/Utils/Notice.json"
+                };
+                $.get(ak, function () {
+                  var am = G(D().mark(function an(ao, ap, aq) {
+                    return D().wrap(function (as) {
+                      for (;;) {
+                        switch (as.prev = as.next) {
+                          case 0:
+                            try {
+                              ao ? (console.log("".concat(JSON.stringify(ao))), console.log("".concat($.name, " API请求失败，请检查网路重试"))) : console.log(JSON.parse(aq).notice);
+                            } catch (at) {
+                              $.logErr(at, ap);
+                            } finally {
+                              aj();
+                            }
+                          case 1:
+                          case "end":
+                            return as.stop();
+                        }
+                      }
+                    }, an);
+                  }));
+                  return function (ao, ap, aq) {
+                    return am.apply(this, arguments);
+                  };
+                }());
+              }));
+            case 1:
+            case "end":
+              return ah.stop();
+          }
+        }
+      }, ae);
+    }));
+    return aa.apply(this, arguments);
+  }
+  function ab(ad) {
+    return ac.apply(this, arguments);
+  }
+  function ac() {
+    ac = G(D().mark(function ad(ae) {
+      return D().wrap(function (ah) {
+        for (;;) {
+          switch (ah.prev = ah.next) {
+            case 0:
+              if (!$.isNode()) {
+                ah.next = 5;
+                break;
+              }
+              ah.next = 3;
+              return notify.sendNotify($.name, ae);
+            case 3:
+              ah.next = 6;
+              break;
+            case 5:
+              $.msg($.name, "", ae);
+            case 6:
+            case "end":
+              return ah.stop();
+          }
+        }
+      }, ad);
+    }));
+    return ac.apply(this, arguments);
+  }
+  G(D().mark(function ad() {
+    return D().wrap(function (ae) {
+      for (;;) {
+        switch (ae.prev = ae.next) {
+          case 0:
+            ae.next = 2;
+            return a9();
+          case 2:
+            ae.next = 4;
+            return T();
+          case 4:
+          case "end":
+            return ae.stop();
+        }
+      }
+    }, ad);
+  }))().catch(function (ae) {
+    $.log(ae);
+  }).finally(function () {
+    $.done({});
+  });
+})();
+function Env(t, e) {
+  class s {
+    constructor(t) {
+      this.env = t;
+    }
+    send(t, e = "GET") {
+      t = "string" == typeof t ? {
+        url: t
+      } : t;
+      let s = this.get;
+      "POST" === e && (s = this.post);
+      return new Promise((e, i) => {
+        s.call(this, t, (t, s, o) => {
+          t ? i(t) : e(s);
+        });
+      });
+    }
+    get(t) {
+      return this.send.call(this.env, t);
+    }
+    post(t) {
+      return this.send.call(this.env, t, "POST");
+    }
+  }
+  return new class {
+    constructor(t, e) {
+      this.logLevels = {
+        debug: 0,
+        info: 1,
+        warn: 2,
+        error: 3
+      };
+      this.logLevelPrefixs = {
+        debug: "[DEBUG] ",
+        info: "[INFO] ",
+        warn: "[WARN] ",
+        error: "[ERROR] "
+      };
+      this.logLevel = "info";
+      this.name = t;
+      this.http = new s(this);
+      this.data = null;
+      this.dataFile = "box.dat";
+      this.logs = [];
+      this.isMute = false;
+      this.isNeedRewrite = false;
+      this.logSeparator = "\n";
+      this.encoding = "utf-8";
+      this.startTime = new Date().getTime();
+      Object.assign(this, e);
+      this.log("", `🔔${this.name}, 开始!`);
+    }
+    getEnv() {
+      return "undefined" != typeof $environment && $environment["surge-version"] ? "Surge" : "undefined" != typeof $environment && $environment["stash-version"] ? "Stash" : "undefined" != typeof module && module.exports ? "Node.js" : "undefined" != typeof $task ? "Quantumult X" : "undefined" != typeof $loon ? "Loon" : "undefined" != typeof $rocket ? "Shadowrocket" : undefined;
+    }
+    isNode() {
+      return "Node.js" === this.getEnv();
+    }
+    isQuanX() {
+      return "Quantumult X" === this.getEnv();
+    }
+    isSurge() {
+      return "Surge" === this.getEnv();
+    }
+    isLoon() {
+      return "Loon" === this.getEnv();
+    }
+    isShadowrocket() {
+      return "Shadowrocket" === this.getEnv();
+    }
+    isStash() {
+      return "Stash" === this.getEnv();
+    }
+    toObj(t, e = null) {
+      try {
+        return JSON.parse(t);
+      } catch {
+        return e;
+      }
+    }
+    toStr(t, e = null, ...s) {
+      try {
+        return JSON.stringify(t, ...s);
+      } catch {
+        return e;
+      }
+    }
+    getjson(t, e) {
+      let s = e;
+      if (this.getdata(t)) {
+        try {
+          s = JSON.parse(this.getdata(t));
+        } catch {}
+      }
+      return s;
+    }
+    setjson(t, e) {
+      try {
+        return this.setdata(JSON.stringify(t), e);
+      } catch {
+        return false;
+      }
+    }
+    getScript(t) {
+      return new Promise(e => {
+        this.get({
+          url: t
+        }, (t, s, i) => e(i));
+      });
+    }
+    runScript(t, e) {
+      return new Promise(s => {
+        let i = this.getdata("@chavy_boxjs_userCfgs.httpapi");
+        i = i ? i.replace(/\n/g, "").trim() : i;
+        let o = this.getdata("@chavy_boxjs_userCfgs.httpapi_timeout");
+        o = o ? 1 * o : 20;
+        o = e && e.timeout ? e.timeout : o;
+        const [r, a] = i.split("@");
+        const n = {
+          url: `http://${a}/v1/scripting/evaluate`,
+          body: {
+            script_text: t,
+            mock_type: "cron",
+            timeout: o
+          },
+          headers: {
+            "X-Key": r,
+            Accept: "*/*"
+          },
+          timeout: o
+        };
+        this.post(n, (t, e, i) => s(i));
+      }).catch(t => this.logErr(t));
+    }
+    loaddata() {
+      if (!this.isNode()) {
+        return {};
+      }
+      {
+        this.fs = this.fs ? this.fs : require("fs");
+        this.path = this.path ? this.path : require("path");
+        const t = this.path.resolve(this.dataFile);
+        const e = this.path.resolve(process.cwd(), this.dataFile);
+        const s = this.fs.existsSync(t);
+        const i = !s && this.fs.existsSync(e);
+        if (!s && !i) {
+          return {};
+        }
+        {
+          const i = s ? t : e;
+          try {
+            return JSON.parse(this.fs.readFileSync(i));
+          } catch (t) {
+            return {};
+          }
+        }
+      }
+    }
+    writedata() {
+      if (this.isNode()) {
+        this.fs = this.fs ? this.fs : require("fs");
+        this.path = this.path ? this.path : require("path");
+        const t = this.path.resolve(this.dataFile);
+        const e = this.path.resolve(process.cwd(), this.dataFile);
+        const s = this.fs.existsSync(t);
+        const i = !s && this.fs.existsSync(e);
+        const o = JSON.stringify(this.data);
+        s ? this.fs.writeFileSync(t, o) : i ? this.fs.writeFileSync(e, o) : this.fs.writeFileSync(t, o);
+      }
+    }
+    lodash_get(t, e, s) {
+      const i = e.replace(/\[(\d+)\]/g, ".$1").split(".");
+      let o = t;
+      for (const t of i) if (o = Object(o)[t], undefined === o) {
+        return s;
+      }
+      return o;
+    }
+    lodash_set(t, e, s) {
+      Object(t) !== t || (Array.isArray(e) || (e = e.toString().match(/[^.[\]]+/g) || []), e.slice(0, -1).reduce((t, s, i) => Object(t[s]) === t[s] ? t[s] : t[s] = Math.abs(e[i + 1]) >> 0 == +e[i + 1] ? [] : {}, t)[e[e.length - 1]] = s);
+      return t;
+    }
+    getdata(t) {
+      let e = this.getval(t);
+      if (/^@/.test(t)) {
+        const [, s, i] = /^@(.*?)\.(.*?)$/.exec(t);
+        const o = s ? this.getval(s) : "";
+        if (o) {
+          try {
+            const t = JSON.parse(o);
+            e = t ? this.lodash_get(t, i, "") : e;
+          } catch (t) {
+            e = "";
+          }
+        }
+      }
+      return e;
+    }
+    setdata(t, e) {
+      let s = false;
+      if (/^@/.test(e)) {
+        const [, i, o] = /^@(.*?)\.(.*?)$/.exec(e);
+        const r = this.getval(i);
+        const a = i ? "null" === r ? null : r || "{}" : "{}";
+        try {
+          const e = JSON.parse(a);
+          this.lodash_set(e, o, t);
+          s = this.setval(JSON.stringify(e), i);
+        } catch (e) {
+          const r = {};
+          this.lodash_set(r, o, t);
+          s = this.setval(JSON.stringify(r), i);
+        }
+      } else {
+        s = this.setval(t, e);
+      }
+      return s;
+    }
+    getval(t) {
+      switch (this.getEnv()) {
+        case "Surge":
+        case "Loon":
+        case "Stash":
+        case "Shadowrocket":
+          return $persistentStore.read(t);
+        case "Quantumult X":
+          return $prefs.valueForKey(t);
+        case "Node.js":
+          this.data = this.loaddata();
+          return this.data[t];
+        default:
+          return this.data && this.data[t] || null;
+      }
+    }
+    setval(t, e) {
+      switch (this.getEnv()) {
+        case "Surge":
+        case "Loon":
+        case "Stash":
+        case "Shadowrocket":
+          return $persistentStore.write(t, e);
+        case "Quantumult X":
+          return $prefs.setValueForKey(t, e);
+        case "Node.js":
+          this.data = this.loaddata();
+          this.data[e] = t;
+          this.writedata();
+          return true;
+        default:
+          return this.data && this.data[e] || null;
+      }
+    }
+    initGotEnv(t) {
+      this.got = this.got ? this.got : require("got");
+      this.cktough = this.cktough ? this.cktough : require("tough-cookie");
+      this.ckjar = this.ckjar ? this.ckjar : new this.cktough.CookieJar();
+      t && (t.headers = t.headers ? t.headers : {}, t && (t.headers = t.headers ? t.headers : {}, undefined === t.headers.cookie && undefined === t.headers.Cookie && undefined === t.cookieJar && (t.cookieJar = this.ckjar)));
+    }
+    get(t, e = () => {}) {
+      switch (t.headers && (delete t.headers["Content-Type"], delete t.headers["Content-Length"], delete t.headers["content-type"], delete t.headers["content-length"]), t.params && (t.url += "?" + this.queryStr(t.params)), undefined === t.followRedirect || t.followRedirect || ((this.isSurge() || this.isLoon()) && (t["auto-redirect"] = false), this.isQuanX() && (t.opts ? t.opts.redirection = false : t.opts = {
+        redirection: false
+      })), this.getEnv()) {
+        case "Surge":
+        case "Loon":
+        case "Stash":
+        case "Shadowrocket":
+        default:
+          this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, {
+            "X-Surge-Skip-Scripting": false
+          }));
+          $httpClient.get(t, (t, s, i) => {
+            !t && s && (s.body = i, s.statusCode = s.status ? s.status : s.statusCode, s.status = s.statusCode);
+            e(t, s, i);
+          });
+          break;
+        case "Quantumult X":
+          this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, {
+            hints: false
+          }));
+          $task.fetch(t).then(t => {
+            const {
+              statusCode: s,
+              statusCode: i,
+              headers: o,
+              body: r,
+              bodyBytes: a
+            } = t;
+            e(null, {
+              status: s,
+              statusCode: i,
+              headers: o,
+              body: r,
+              bodyBytes: a
+            }, r, a);
+          }, t => e(t && t.error || "UndefinedError"));
+          break;
+        case "Node.js":
+          let s = require("iconv-lite");
+          this.initGotEnv(t);
+          this.got(t).on("redirect", (t, e) => {
+            try {
+              if (t.headers["set-cookie"]) {
+                const s = t.headers["set-cookie"].map(this.cktough.Cookie.parse).toString();
+                s && this.ckjar.setCookieSync(s, null);
+                e.cookieJar = this.ckjar;
+              }
+            } catch (t) {
+              this.logErr(t);
+            }
+          }).then(t => {
+            const {
+              statusCode: i,
+              statusCode: o,
+              headers: r,
+              rawBody: a
+            } = t;
+            const n = s.decode(a, this.encoding);
+            e(null, {
+              status: i,
+              statusCode: o,
+              headers: r,
+              rawBody: a,
+              body: n
+            }, n);
+          }, t => {
+            const {
+              message: i,
+              response: o
+            } = t;
+            e(i, o, o && s.decode(o.rawBody, this.encoding));
+          });
+          break;
+      }
+    }
+    post(t, e = () => {}) {
+      const s = t.method ? t.method.toLocaleLowerCase() : "post";
+      switch (t.body && t.headers && !t.headers["Content-Type"] && !t.headers["content-type"] && (t.headers["content-type"] = "application/x-www-form-urlencoded"), t.headers && (delete t.headers["Content-Length"], delete t.headers["content-length"]), undefined === t.followRedirect || t.followRedirect || ((this.isSurge() || this.isLoon()) && (t["auto-redirect"] = false), this.isQuanX() && (t.opts ? t.opts.redirection = false : t.opts = {
+        redirection: false
+      })), this.getEnv()) {
+        case "Surge":
+        case "Loon":
+        case "Stash":
+        case "Shadowrocket":
+        default:
+          this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, {
+            "X-Surge-Skip-Scripting": false
+          }));
+          $httpClient[s](t, (t, s, i) => {
+            !t && s && (s.body = i, s.statusCode = s.status ? s.status : s.statusCode, s.status = s.statusCode);
+            e(t, s, i);
+          });
+          break;
+        case "Quantumult X":
+          t.method = s;
+          this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, {
+            hints: false
+          }));
+          $task.fetch(t).then(t => {
+            const {
+              statusCode: s,
+              statusCode: i,
+              headers: o,
+              body: r,
+              bodyBytes: a
+            } = t;
+            e(null, {
+              status: s,
+              statusCode: i,
+              headers: o,
+              body: r,
+              bodyBytes: a
+            }, r, a);
+          }, t => e(t && t.error || "UndefinedError"));
+          break;
+        case "Node.js":
+          let i = require("iconv-lite");
+          this.initGotEnv(t);
+          const {
+            url: o,
+            ...r
+          } = t;
+          this.got[s](o, r).then(t => {
+            const {
+              statusCode: s,
+              statusCode: o,
+              headers: r,
+              rawBody: a
+            } = t;
+            const n = i.decode(a, this.encoding);
+            e(null, {
+              status: s,
+              statusCode: o,
+              headers: r,
+              rawBody: a,
+              body: n
+            }, n);
+          }, t => {
+            const {
+              message: s,
+              response: o
+            } = t;
+            e(s, o, o && i.decode(o.rawBody, this.encoding));
+          });
+          break;
+      }
+    }
+    time(t, e = null) {
+      const s = e ? new Date(e) : new Date();
+      let i = {
+        "M+": s.getMonth() + 1,
+        "d+": s.getDate(),
+        "H+": s.getHours(),
+        "m+": s.getMinutes(),
+        "s+": s.getSeconds(),
+        "q+": Math.floor((s.getMonth() + 3) / 3),
+        S: s.getMilliseconds()
+      };
+      /(y+)/.test(t) && (t = t.replace(RegExp.$1, (s.getFullYear() + "").substr(4 - RegExp.$1.length)));
+      for (let e in i) new RegExp("(" + e + ")").test(t) && (t = t.replace(RegExp.$1, 1 == RegExp.$1.length ? i[e] : ("00" + i[e]).substr(("" + i[e]).length)));
+      return t;
+    }
+    queryStr(t) {
+      let e = "";
+      for (const s in t) {
+        let i = t[s];
+        null != i && "" !== i && ("object" == typeof i && (i = JSON.stringify(i)), e += `${s}=${i}&`);
+      }
+      e = e.substring(0, e.length - 1);
+      return e;
+    }
+    msg(e = t, s = "", i = "", o = {}) {
+      const r = t => {
+        const {
+          $open: e,
+          $copy: s,
+          $media: i,
+          $mediaMime: o
+        } = t;
+        switch (typeof t) {
+          case undefined:
+            return t;
+          case "string":
+            switch (this.getEnv()) {
+              case "Surge":
+              case "Stash":
+              default:
+                return {
+                  url: t
+                };
+              case "Loon":
+              case "Shadowrocket":
+                return t;
+              case "Quantumult X":
+                return {
+                  "open-url": t
+                };
+              case "Node.js":
+                return;
+            }
+          case "object":
+            switch (this.getEnv()) {
+              case "Surge":
+              case "Stash":
+              case "Shadowrocket":
+              default:
+                {
+                  const r = {};
+                  let a = t.openUrl || t.url || t["open-url"] || e;
+                  a && Object.assign(r, {
+                    action: "open-url",
+                    url: a
+                  });
+                  let n = t["update-pasteboard"] || t.updatePasteboard || s;
+                  if (n && Object.assign(r, {
+                    action: "clipboard",
+                    text: n
+                  }), i) {
+                    let t;
+                    let e;
+                    let s;
+                    if (i.startsWith("http")) {
+                      t = i;
+                    } else {
+                      if (i.startsWith("data:")) {
+                        const [t] = i.split(";");
+                        const [, o] = i.split(",");
+                        e = o;
+                        s = t.replace("data:", "");
+                      } else {
+                        e = i;
+                        s = (t => {
+                          const e = {
+                            JVBERi0: "application/pdf",
+                            R0lGODdh: "image/gif",
+                            R0lGODlh: "image/gif",
+                            iVBORw0KGgo: "image/png",
+                            "/9j/": "image/jpg"
+                          };
+                          for (var s in e) if (0 === t.indexOf(s)) {
+                            return e[s];
+                          }
+                          return null;
+                        })(i);
+                      }
+                    }
+                    Object.assign(r, {
+                      "media-url": t,
+                      "media-base64": e,
+                      "media-base64-mime": o ?? s
+                    });
+                  }
+                  Object.assign(r, {
+                    "auto-dismiss": t["auto-dismiss"],
+                    sound: t.sound
+                  });
+                  return r;
+                }
+              case "Loon":
+                {
+                  const s = {};
+                  let o = t.openUrl || t.url || t["open-url"] || e;
+                  o && Object.assign(s, {
+                    openUrl: o
+                  });
+                  let r = t.mediaUrl || t["media-url"];
+                  i?.startsWith("http") && (r = i);
+                  r && Object.assign(s, {
+                    mediaUrl: r
+                  });
+                  console.log(JSON.stringify(s));
+                  return s;
+                }
+              case "Quantumult X":
+                {
+                  const o = {};
+                  let r = t["open-url"] || t.url || t.openUrl || e;
+                  r && Object.assign(o, {
+                    "open-url": r
+                  });
+                  let a = t["media-url"] || t.mediaUrl;
+                  i?.startsWith("http") && (a = i);
+                  a && Object.assign(o, {
+                    "media-url": a
+                  });
+                  let n = t["update-pasteboard"] || t.updatePasteboard || s;
+                  n && Object.assign(o, {
+                    "update-pasteboard": n
+                  });
+                  console.log(JSON.stringify(o));
+                  return o;
+                }
+              case "Node.js":
+                return;
+            }
+          default:
+            return;
+        }
+      };
+      if (!this.isMute) {
+        switch (this.getEnv()) {
+          case "Surge":
+          case "Loon":
+          case "Stash":
+          case "Shadowrocket":
+          default:
+            $notification.post(e, s, i, r(o));
+            break;
+          case "Quantumult X":
+            $notify(e, s, i, r(o));
+            break;
+          case "Node.js":
+            break;
+        }
+      }
+      if (!this.isMuteLog) {
+        let t = ["", "==============📣系统通知📣=============="];
+        t.push(e);
+        s && t.push(s);
+        i && t.push(i);
+        console.log(t.join("\n"));
+        this.logs = this.logs.concat(t);
+      }
+    }
+    debug(...t) {
+      this.logLevels[this.logLevel] <= this.logLevels.debug && (t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(`${this.logLevelPrefixs.debug}${t.map(t => t ?? String(t)).join(this.logSeparator)}`));
+    }
+    info(...t) {
+      this.logLevels[this.logLevel] <= this.logLevels.info && (t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(`${this.logLevelPrefixs.info}${t.map(t => t ?? String(t)).join(this.logSeparator)}`));
+    }
+    warn(...t) {
+      this.logLevels[this.logLevel] <= this.logLevels.warn && (t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(`${this.logLevelPrefixs.warn}${t.map(t => t ?? String(t)).join(this.logSeparator)}`));
+    }
+    error(...t) {
+      this.logLevels[this.logLevel] <= this.logLevels.error && (t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(`${this.logLevelPrefixs.error}${t.map(t => t ?? String(t)).join(this.logSeparator)}`));
+    }
+    log(...t) {
+      t.length > 0 && (this.logs = [...this.logs, ...t]);
+      console.log(t.map(t => t ?? String(t)).join(this.logSeparator));
+    }
+    logErr(t, e) {
+      switch (this.getEnv()) {
+        case "Surge":
+        case "Loon":
+        case "Stash":
+        case "Shadowrocket":
+        case "Quantumult X":
+        default:
+          this.log("", `❗️${this.name}, 错误!`, e, t);
+          break;
+        case "Node.js":
+          this.log("", `❗️${this.name}, 错误!`, e, undefined !== t.message ? t.message : t, t.stack);
+          break;
+      }
+    }
+    wait(t) {
+      return new Promise(e => setTimeout(e, t));
+    }
+    done(t = {}) {
+      const e = (new Date().getTime() - this.startTime) / 1000;
+      switch (this.log("", `🔔${this.name}, 结束! 🕛 ${e} 秒`), this.log(), this.getEnv()) {
+        case "Surge":
+        case "Loon":
+        case "Stash":
+        case "Shadowrocket":
+        case "Quantumult X":
+        default:
+          $done(t);
+          break;
+        case "Node.js":
+          process.exit(1);
+      }
+    }
+  }(t, e);
+}
